@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-st.set_page_config(page_title="PD veiklos rodiklių stebėsena", page_icon="📊", layout="wide")
+st.set_page_config(page_title="Policijos veiklos rodiklių stebėsena", page_icon="📊", layout="wide")
 
 MONTHS = {1: "Sausis", 2: "Vasaris", 3: "Kovas", 4: "Balandis", 5: "Gegužė", 6: "Birželis", 7: "Liepa", 8: "Rugpjūtis", 9: "Rugsėjis", 10: "Spalis", 11: "Lapkritis", 12: "Gruodis"}
 GREEN = "#287b59"
@@ -29,7 +29,7 @@ except Exception as exc:
     st.error(f"Nepavyko įkelti duomenų: {exc}")
     st.stop()
 
-st.title("PD veiklos rodiklių stebėsena")
+st.title("Policijos veiklos rodiklių stebėsena")
 st.caption("Viešai skelbiami IRD duomenys · bandomoji versija")
 st.info("Duomenys kaupiamieji: pasirinkus, pavyzdžiui, rugsėjį, rodomas laikotarpis nuo sausio iki rugsėjo. Tai nėra vien rugsėjo mėnesio rezultatai.", icon="ℹ️")
 
