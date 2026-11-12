@@ -1,4 +1,4 @@
-# PD veiklos rodiklių stebėsena — prototipas
+# Policijos veiklos rodiklių stebėsena — prototipas
 
 Puslapis naudoja kartu pateiktą `pd_rodikliai.csv` ir viešų IRD ataskaitų duomenis.
 
