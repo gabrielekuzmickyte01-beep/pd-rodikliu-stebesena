@@ -1,0 +1,48 @@
+name: Automatinis IRD rodiklių atnaujinimas
+
+on:
+  schedule:
+    - cron: "15 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: irdupdater
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Atsisiųsti projekto failus
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Įjungti Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: updater-requirements.txt
+
+      - name: Įdiegti priklausomybes
+        run: python -m pip install -r updater-requirements.txt
+
+      - name: Patikrinti IRD ataskaitas
+        run: python update_ird.py
+
+      - name: Įrašyti atnaujintus duomenis
+        run: |
+          if git diff --quiet -- pd_rodikliai.csv; then
+            echo "CSV nepasikeitė"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pd_rodikliai.csv
+          git commit -m "Automatiškai atnaujinti IRD rodikliai"
+          git push
