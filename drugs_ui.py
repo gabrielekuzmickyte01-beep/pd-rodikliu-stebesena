@@ -17,8 +17,8 @@ REQUIRED = {"year", "month", "quarter", "territory",
             "previous_total", "current_total", "growth_percent"}
 
 
-@st.cache_data
-def load_drugs():
+@st.cache_data(ttl=300)
+def load_drugs(file_version):
     data = pd.read_csv(CSV)
     if not REQUIRED.issubset(data.columns):
         raise ValueError("Naujajame CSV trūksta stulpelių")
@@ -33,7 +33,7 @@ def load_drugs():
     expected = (data["current_total"] - data["previous_total"]) / data["previous_total"].replace(0, np.nan) * 100
     if not np.isclose(expected, data["growth_percent"], rtol=0, atol=0.011, equal_nan=True).all():
         raise ValueError("Rodiklio reikšmės neatitinka skaičiavimo formulės")
-    if (data.groupby(["year", "month"])["territory"].nunique() != 11).any():
+    if (data.groupby(["year", "month"])["territory"].nunique() != 13).any():
         raise ValueError("Kai kuriuose laikotarpiuose trūksta teritorijų")
     return data
 
@@ -147,7 +147,8 @@ def draw_trend(data, territory, selected_month, metric):
 
 def render():
     try:
-        data = load_drugs()
+        stt = CSV.stat()
+        data = load_drugs((stt.st_mtime_ns, stt.st_size))
     except Exception as exc:
         st.error(f"Nepavyko įkelti narkotinių medžiagų rodiklio: {exc}")
         return
@@ -178,10 +179,11 @@ def render():
     col3.metric("Skirtumas nuo bendro rodiklio",
                 "Neskaičiuojama" if pd.isna(diff) else f"{diff:+.2f} proc. p.")
 
-    st.subheader("Apskričių palyginimas")
+    st.subheader("Apskričių VPK, LKPB ir PD prie VRM palyginimas")
     draw_bar(period, country_value)
-    st.caption("Oranžinė punktyrinė linija – policijos sistemos (IRD eilutės „Polic. įstaigos“) rodiklis, "
-               "ne apskričių aritmetinis vidurkis. Teigiamos reikšmės žalios, neigiamos – raudonos.")
+    st.caption("Oranžinė punktyrinė linija – policijos sistemos (IRD eilutės „Polic. įstaigos“) rodiklis. "
+               "LKPB ir PD prie VRM jau įtraukti į bendrą rezultatą; jų antrą kartą nepridedame. "
+               "Teigiamos reikšmės žalios, neigiamos – raudonos.")
 
     st.subheader(f"Procentinio pokyčio dinamika – {'Policijos sistemos' if territory == 'Visa Lietuva' else territory}")
     draw_trend(data, territory, month, "growth_percent")
