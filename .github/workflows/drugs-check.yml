@@ -6,6 +6,8 @@ on:
       - app.py
       - drugs_ui.py
       - update_drugs.py
+      - update_ird.py
+      - pd_rodikliai.csv
       - narkotiku_rodiklis.csv
       - .github/workflows/drugs-check.yml
   workflow_dispatch:
@@ -30,13 +32,21 @@ jobs:
         run: |
           python - <<'PY'
           import pandas as pd
-          from drugs_ui import load_drugs
-          df = load_drugs()
-          assert len(df) == 330
+          from drugs_ui import load_drugs, CSV
+          stat = CSV.stat()
+          df = load_drugs((stat.st_mtime_ns, stat.st_size))
+          assert len(df) == 390
           assert set(df.year) == {2024, 2025, 2026}
           assert set(df.month) == set(range(1, 11))
-          assert df.growth_percent.isna().sum() == 1
+          assert df.growth_percent.isna().sum() >= 1
+          assert (df.groupby(["year", "month"])["territory"].nunique() == 13).all()
           r = df[(df.year == 2026) & (df.month == 10) & (df.territory == "Visa Lietuva")].iloc[0]
           assert (r.previous_total, r.current_total, r.growth_percent) == (640, 781, 22.03)
-          print("330 įrašų ir 2026 m. spalio kontrolinis rezultatas patvirtinti")
+          main = pd.read_csv("pd_rodikliai.csv")
+          assert len(main) == 1768
+          assert (main.groupby(["indicator", "year", "month"])["territory"].nunique() == 13).all()
+          slsn = main[(main.indicator == "Sunkūs ir labai sunkūs nusikaltimai") & (main.year == 2026) & (main.month == 9)]
+          whole = slsn[slsn.territory == "Visa Lietuva"].iloc[0]
+          assert (whole.registered, whole.investigated, whole.remaining, whole.value) == (1496, 831, 15, 55.0)
+          print("Abu CSV turi 13 įstaigų / teritorijų ir nacionaliniai rodikliai nepadvigubinti")
           PY
