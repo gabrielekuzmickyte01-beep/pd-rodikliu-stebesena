@@ -234,8 +234,10 @@ def main() -> int:
     else:
         print("Patvirtintų naujų duomenų nėra; CSV nepakeistas")
     if problems:
-        print(f"Dalis užklausų nepavyko ({len(problems)}). CSV paliktas be netikrintų periodų.", file=sys.stderr)
-        # Laukiama nauja ataskaita neturi paversti suplanuoto darbo nesėkmingu.
+        for issue in problems:
+            print("PATIKROS KLAIDA:", issue, file=sys.stderr)
+        # GitHub Actions pažymės užduotį raudonai; abejotinų duomenų automatiškai neskelbiame.
+        raise RuntimeError(f"Nepatikrinti IRD duomenys: {len(problems)} problemų")
     return 0
 
 
