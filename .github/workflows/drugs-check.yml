@@ -1,0 +1,42 @@
+name: Penktojo rodiklio patikra
+
+on:
+  push:
+    paths:
+      - app.py
+      - drugs_ui.py
+      - update_drugs.py
+      - narkotiku_rodiklis.csv
+      - .github/workflows/drugs-check.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Bibliotekos
+        run: python -m pip install -r requirements.txt -r updater-requirements.txt
+      - name: Python sintaksės patikra
+        run: python -m py_compile app.py drugs_ui.py update_drugs.py update_ird.py
+      - name: CSV ir formulės patikra
+        run: |
+          python - <<'PY'
+          import pandas as pd
+          from drugs_ui import load_drugs
+          df = load_drugs()
+          assert len(df) == 330
+          assert set(df.year) == {2024, 2025, 2026}
+          assert set(df.month) == set(range(1, 11))
+          assert df.growth_percent.isna().sum() == 1
+          r = df[(df.year == 2026) & (df.month == 10) & (df.territory == "Visa Lietuva")].iloc[0]
+          assert (r.previous_total, r.current_total, r.growth_percent) == (640, 781, 22.03)
+          print("330 įrašų ir 2026 m. spalio kontrolinis rezultatas patvirtinti")
+          PY
