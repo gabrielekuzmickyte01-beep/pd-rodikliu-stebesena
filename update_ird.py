@@ -190,13 +190,33 @@ def main() -> int:
         if updated_period.duplicated(KEYS).any() or len(updated_period) != 44:
             problems.append(f"{year}-{month:02d}: įrašų dublikatai / ne 44")
             continue
-        # Saugiklis: naujas laikotarpis negali būti ankstesnio pilna kopija.
+        # Naujiems laikotarpiams taikoma konservatyvi kiekvienos formos patikra.
+        # Jei bent vienos formos reikšmės 11 teritorijų visiškai sutampa su
+        # ankstesniu mėnesiu, nepublikuojame viso laikotarpio be rankinės peržiūros.
+        # Tai negali įrodyti, kad mėnuo teisingas (teisėti sutapimai irgi galimi).
         already_present = ((current["year"] == year) & (current["month"] == month)).any()
         if not already_present:
             prev_year, prev_month = (year, month - 1) if month > 1 else (year - 1, 12)
             prev = current[(current["year"] == prev_year) & (current["month"] == prev_month)]
-            if len(prev) == 44 and all(same_values(updated_period[updated_period["indicator"] == ind], prev[prev["indicator"] == ind]) for ind in INDICATORS):
-                print(f"{year}-{month:02d}: visų rodiklių duomenys tapatūs ankstesniam mėnesiui – nepaskelbiame")
+            if len(prev) == 0 and candidate_updates:
+                prev = pd.concat(candidate_updates, ignore_index=True)
+                prev = prev[(prev["year"] == prev_year) & (prev["month"] == prev_month)]
+            if len(prev) != 44:
+                problems.append(f"{year}-{month:02d}: nėra patvirtinto ankstesnio laikotarpio palyginimui")
+                continue
+            identical_indicators = [
+                ind for ind in INDICATORS
+                if same_values(
+                    updated_period[updated_period["indicator"] == ind],
+                    prev[prev["indicator"] == ind],
+                )
+            ]
+            if identical_indicators:
+                problems.append(
+                    f"{year}-{month:02d}: {len(identical_indicators)} formų reikšmės "
+                    f"identiškos ankstesniam mėnesiui: {', '.join(identical_indicators)}. "
+                    "Naujas laikotarpis nepublikuojamas iki rankinio patvirtinimo."
+                )
                 continue
         candidate_updates.append(updated_period)
     if candidate_updates:
