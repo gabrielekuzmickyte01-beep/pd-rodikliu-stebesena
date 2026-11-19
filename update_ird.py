@@ -30,7 +30,7 @@ INDICATORS = {
 }
 KEYS = ["indicator", "territory", "year", "month"]
 COLUMNS = ["indicator", "territory", "year", "month", "quarter", "value", "unit", "registered", "investigated", "remaining", "change_days", "case_count"]
-COUNTIES = {"Alytaus aps.", "Kauno aps.", "Klaipėdos aps.", "Marijampolės aps.", "Panevėžio aps.", "Šiaulių aps.", "Tauragės aps.", "Telšių aps.", "Utenos aps.", "Vilniaus aps.", "Visa Lietuva"}
+COUNTIES = {"Alytaus aps.", "Kauno aps.", "Klaipėdos aps.", "Marijampolės aps.", "Panevėžio aps.", "Šiaulių aps.", "Tauragės aps.", "Telšių aps.", "Utenos aps.", "Vilniaus aps.", "Visa Lietuva", "LKPB", "PD prie VRM"}
 
 
 def clean_number(series: pd.Series, *, file_label: str) -> pd.Series:
@@ -81,8 +81,10 @@ def parse_excel(content: bytes, indicator: str, year: int, month: int) -> pd.Dat
     names = raw.iloc[:, 0].astype("string").str.replace(r"\s+", " ", regex=True).str.strip()
     names = names.replace({"Polic. įstaigos": "Visa Lietuva"})
     mask = names.isin(COUNTIES)
-    if mask.sum() != 11 or set(names[mask].tolist()) != COUNTIES:
+    if mask.sum() != 13 or set(names[mask].tolist()) != COUNTIES:
         raise ValueError(f"Trūksta teritorijų arba jos dubliuojasi ({int(mask.sum())})")
+    # Bendras IRD rodiklis jau apima 10 apskričių VPK, LKPB ir PD prie VRM.
+    # Juos skelbiame atskirai, bet papildomai nepridedame prie bendros eilutės.
     result = pd.DataFrame({"territory": names[mask].tolist()})
     for metric, column in selected.items():
         result[metric] = clean_number(raw.loc[mask, column].reset_index(drop=True), file_label=f"{indicator} {year}-{month:02d} {metric}")
@@ -94,7 +96,7 @@ def parse_excel(content: bytes, indicator: str, year: int, month: int) -> pd.Dat
     for col in COLUMNS:
         if col not in result:
             result[col] = float("nan")
-    if not result["value"].between(0, 100000).all():
+    if not result["value"].dropna().between(0, 100000).all():
         raise ValueError("Rodikliai nepagrįstai dideli arba neigiami")
     for col in ["remaining", "registered", "investigated", "case_count"]:
         if result[col].notna().any() and (result[col].dropna() < 0).any():
@@ -191,7 +193,7 @@ def main() -> int:
             print(f"{year}-{month:02d}: nepilnas laikotarpis; nekeičiamas", file=sys.stderr)
             continue
         updated_period = pd.concat(candidate, ignore_index=True)
-        if updated_period.duplicated(KEYS).any() or len(updated_period) != 44:
+        if updated_period.duplicated(KEYS).any() or len(updated_period) != 52:
             problems.append(f"{year}-{month:02d}: įrašų dublikatai / ne 44")
             continue
         # Naujiems laikotarpiams taikoma konservatyvi kiekvienos formos patikra.
@@ -205,7 +207,7 @@ def main() -> int:
             if len(prev) == 0 and candidate_updates:
                 prev = pd.concat(candidate_updates, ignore_index=True)
                 prev = prev[(prev["year"] == prev_year) & (prev["month"] == prev_month)]
-            if len(prev) != 44:
+            if len(prev) != 52:
                 problems.append(f"{year}-{month:02d}: nėra patvirtinto ankstesnio laikotarpio palyginimui")
                 continue
             identical_indicators = [
