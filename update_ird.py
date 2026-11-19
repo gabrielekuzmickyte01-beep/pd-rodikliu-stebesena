@@ -59,13 +59,17 @@ def parse_excel(content: bytes, indicator: str, year: int, month: int) -> pd.Dat
         unit = "dienos"
     else:
         header_row = 10 if indicator == "Sunkūs ir labai sunkūs nusikaltimai" else 9
-        groups = ({"remaining": [2, 3], "registered": [4, 5], "investigated": [9, 10], "value": [13, 14]}
+        groups = ({"remaining": [11, 12], "registered": [4, 5], "investigated": [9, 10], "value": [13, 14]}
                   if indicator == "Sunkūs ir labai sunkūs nusikaltimai" else
-                  {"remaining": [2, 3], "registered": [4, 5], "investigated": [11, 12], "value": [15, 16]}
+                  {"remaining": [13, 14], "registered": [4, 5], "investigated": [11, 12], "value": [15, 16]}
                   if indicator.startswith("Nusikalstamos veikos, kurių metu") else
-                  {"remaining": [2, 3], "registered": [4, 5], "investigated": [10, 11], "value": [14, 15]})
+                  {"remaining": [12, 13], "registered": [4, 5], "investigated": [10, 11], "value": [14, 15]})
         if raw.shape[0] <= header_row or raw.shape[1] <= max(max(x) for x in groups.values()):
             raise ValueError("Netikėta EK/EL lentelės struktūra")
+        # remaining: C – iš ankstesnių laikotarpių užregistruotos veikos,
+        # dėl kurių sprendimai priimti ataskaitiniu laikotarpiu.
+        # Oficiali IRD numeracija: EK-ITĮ 18 psl. 11 stulpelis,
+        # EK-ITĮ 98 psl. 13 stulpelis, EL-ERDVĖ-ITĮ 1 psl. 12 stulpelis.
         selected = {}
         for metric, cols in groups.items():
             matching = [c for c in cols if str(raw.iloc[header_row, c]).strip().replace(".0", "") == str(year)]
