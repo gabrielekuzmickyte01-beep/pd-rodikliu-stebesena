@@ -83,7 +83,7 @@ if is_duration:
     hover = "<b>%{y}</b><br>Vidutinė tyrimo trukmė: %{x:.2f} d.<br>Pokytis nuo ankstesnių metų: %{customdata[0]:+.2f} d.<br>Ataskaitoje nurodytų veikų skaičius: %{customdata[1]:.0f}<extra></extra>"
     extras = counties[["change_days", "case_count"]].to_numpy()
 else:
-    hover = "<b>%{y}</b><br>Ištyrimo rodiklis: %{x:.1f} %<br>Registruota: %{customdata[0]:.0f}<br>Ištirta: %{customdata[1]:.0f}<br>Likutis: %{customdata[2]:.0f}<extra></extra>"
+    hover = "<b>%{y}</b><br>Ištyrimo rodiklis: %{x:.1f} %<br>Registruota: %{customdata[0]:.0f}<br>Ištirta: %{customdata[1]:.0f}<br>Iš ankstesnių laikotarpių ištirta: %{customdata[2]:.0f}<extra></extra>"
     extras = counties[["registered", "investigated", "remaining"]].to_numpy()
 fig_bar.add_trace(go.Bar(x=counties["value"], y=counties["territory"], orientation="h", marker=dict(color=counties["value"], colorscale="Greens_r" if is_duration else "Greens", showscale=False), customdata=extras, hovertemplate=hover))
 fig_bar.add_vline(x=country_value, line_dash="dash", line_color=ORANGE, line_width=2, annotation_text=f"Visa Lietuva: {country_value:.2f} d." if is_duration else f"Visa Lietuva: {country_value:.1f} %", annotation_position="top")
@@ -102,14 +102,15 @@ for y in sorted(trend["year"].unique()):
         hover_line = f"<b>{y} m.</b><br>Iki mėnesio: %{{x}}<br>Vidutinė trukmė: %{{y:.2f}} d.<br>Pokytis nuo ankstesnių metų: %{{customdata[0]:+.2f}} d.<br>Veikų skaičius: %{{customdata[1]:.0f}}<extra></extra>"
     else:
         custom = part[["registered", "investigated", "remaining"]].to_numpy()
-        hover_line = f"<b>{y} m.</b><br>Iki mėnesio: %{{x}}<br>Ištyrimo rodiklis: %{{y:.1f}} %<br>Registruota: %{{customdata[0]:.0f}}<br>Ištirta: %{{customdata[1]:.0f}}<br>Likutis: %{{customdata[2]:.0f}}<extra></extra>"
+        hover_line = f"<b>{y} m.</b><br>Iki mėnesio: %{{x}}<br>Ištyrimo rodiklis: %{{y:.1f}} %<br>Registruota: %{{customdata[0]:.0f}}<br>Ištirta: %{{customdata[1]:.0f}}<br>Iš ankstesnių laikotarpių ištirta: %{{customdata[2]:.0f}}<extra></extra>"
     fig_line.add_trace(go.Scatter(x=part["month"], y=part["value"], mode="lines+markers", name=f"{y} m.", line=dict(width=3, color=YEAR_COLORS.get(y)), marker=dict(size=7), customdata=custom, hovertemplate=hover_line))
 fig_line.update_layout(template="plotly_white", height=460, xaxis=dict(title="Ataskaitinis mėnuo (kaupiamasis laikotarpis)", tickmode="array", tickvals=list(MONTHS), ticktext=[m[:3] for m in MONTHS.values()], range=[0.5,12.5]), yaxis=dict(title="Vidutinė trukmė (dienomis)" if is_duration else "Ištyrimo rodiklis (%)", rangemode="tozero"), margin=dict(l=15,r=25,t=30,b=40), legend_title="Metai")
 st.plotly_chart(fig_line, width="stretch", theme=None, config={"displaylogo": False})
 
 with st.expander("Peržiūrėti pasirinkto laikotarpio skaičius ir šaltinio pastabas"):
     columns = ["territory", "value", "unit"] + (["change_days", "case_count"] if is_duration else ["registered", "investigated", "remaining"])
-    st.dataframe(period[columns].sort_values("territory"), hide_index=True, width="stretch")
+    table = period[columns].sort_values("territory").rename(columns={"remaining": "Iš ankstesnių laikotarpių ištirta"})
+    st.dataframe(table, hide_index=True, width="stretch")
     st.caption("Nusikalstamų veikų tyrimo trukmės ataskaitos stulpelio „nusikalstamų veikų skaičius“ tiksli metodinė apibrėžtis turi būti patvirtinta prieš oficialų naudojimą. Procentai gali viršyti 100 %; jų automatiškai neribojame.")
 
 st.divider()
