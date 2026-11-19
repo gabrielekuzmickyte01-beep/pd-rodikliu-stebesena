@@ -75,7 +75,7 @@ def draw_bar(period, country_value):
     figure.add_vline(x=0, line_color="#8b8b8b", line_width=1)
     if pd.notna(country_value):
         figure.add_vline(x=country_value, line_dash="dash", line_color=ORANGE, line_width=2,
-                         annotation_text=f"Visa Lietuva: {country_value:+.2f} %",
+                         annotation_text=f"Policijos sistemos: {country_value:+.2f} %",
                          annotation_position="top")
     figure.update_layout(template="plotly_white", height=510, showlegend=False,
                          xaxis_title="Pokytis, palyginti su ankstesniais metais (%)",
@@ -113,12 +113,12 @@ def draw_trend(data, territory, selected_month, metric):
         if has_comparison:
             figure.add_trace(go.Scatter(
                 x=reference["month"], y=reference[metric], mode="lines",
-                name=f"{year} m. – Visa Lietuva",
+                name=f"{year} m. – Policijos sistemos",
                 line=dict(color=color, width=2, dash="dash"), opacity=0.72,
                 yaxis="y" if is_growth else "y2",
                 customdata=reference[["previous_total", "current_total", "growth_percent"]].to_numpy(dtype=float),
                 hovertemplate=(
-                    f"<b>Visa Lietuva – {year} m.</b><br>Iki mėnesio: %{{x}}"
+                    f"<b>Policijos sistemos – {year} m.</b><br>Iki mėnesio: %{{x}}"
                     + ("<br>Pokytis: %{y:+.2f} %" if is_growth else "<br>Užregistruota: %{y:.0f}")
                     + "<br>Procentinis pokytis: %{customdata[2]:+.2f} %<extra></extra>"
                 ), connectgaps=False,
@@ -134,7 +134,7 @@ def draw_trend(data, territory, selected_month, metric):
         margin=dict(l=15, r=65 if has_comparison and not is_growth else 25, t=30, b=80),
     )
     if has_comparison and not is_growth:
-        layout["yaxis2"] = dict(title="Visos Lietuvos nusikaltimų skaičius",
+        layout["yaxis2"] = dict(title="Policijos sistemos nusikaltimų skaičius",
                                  overlaying="y", side="right", rangemode="tozero", showgrid=False)
     if is_growth:
         figure.add_hline(y=0, line_dash="dot", line_color="#909090", line_width=1)
@@ -161,7 +161,7 @@ def render():
         month = st.selectbox("Laikotarpio pabaiga", months, format_func=lambda m: MONTHS[m], key="drugs_month")
     with c_territory:
         territories = ["Visa Lietuva"] + sorted(t for t in data["territory"].unique() if t != "Visa Lietuva")
-        territory = st.selectbox("Teritorija istoriniam palyginimui", territories, key="drugs_territory")
+        territory = st.selectbox("Teritorija / įstaiga istoriniam palyginimui", territories, key="drugs_territory", format_func=lambda value: "Policijos sistemos" if value == "Visa Lietuva" else value)
 
     period = data[(data["year"] == year) & (data["month"] == month)]
     selected = period[period["territory"] == territory]
@@ -174,22 +174,23 @@ def render():
     diff = selected_value - country_value
     col1, col2, col3 = st.columns(3)
     col1.metric("Pasirinktos teritorijos rodiklis", fmt_percent(selected_value))
-    col2.metric("Visų policijos įstaigų rodiklis", fmt_percent(country_value))
+    col2.metric("Policijos sistemos rodiklis", fmt_percent(country_value))
     col3.metric("Skirtumas nuo bendro rodiklio",
                 "Neskaičiuojama" if pd.isna(diff) else f"{diff:+.2f} proc. p.")
 
     st.subheader("Apskričių palyginimas")
     draw_bar(period, country_value)
-    st.caption("Oranžinė punktyrinė linija – IRD eilutės „Polic. įstaigos“ rodiklis, "
+    st.caption("Oranžinė punktyrinė linija – policijos sistemos (IRD eilutės „Polic. įstaigos“) rodiklis, "
                "ne apskričių aritmetinis vidurkis. Teigiamos reikšmės žalios, neigiamos – raudonos.")
 
-    st.subheader(f"Procentinio pokyčio dinamika – {territory}")
+    st.subheader(f"Procentinio pokyčio dinamika – {'Policijos sistemos' if territory == 'Visa Lietuva' else territory}")
     draw_trend(data, territory, month, "growth_percent")
-    st.subheader(f"Užregistruotų nusikaltimų skaičiaus dinamika – {territory}")
+    st.subheader(f"Užregistruotų nusikaltimų skaičiaus dinamika – {'Policijos sistemos' if territory == 'Visa Lietuva' else territory}")
     draw_trend(data, territory, month, "current_total")
 
     with st.expander("Peržiūrėti pasirinkto laikotarpio skaičius ir metodiką"):
-        table = period[["territory", "previous_total", "current_total", "growth_percent"]].sort_values("territory")
+        table = period[["territory", "previous_total", "current_total", "growth_percent"]].sort_values("territory").copy()
+        table["territory"] = table["territory"].replace({"Visa Lietuva": "Policijos sistemos"})
         st.dataframe(table, hide_index=True, width="stretch")
         st.caption("R-07-011-11-02-01-06. Formulė: (einamųjų metų skaičius – ankstesnių metų skaičius) / "
                    "ankstesnių metų skaičius × 100. BK 260, BK 260¹, BK 261 str.; EK-ITĮ 12 psl. "
