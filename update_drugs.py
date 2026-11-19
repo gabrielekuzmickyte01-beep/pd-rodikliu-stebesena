@@ -22,7 +22,7 @@ COLUMNS = ["year", "month", "quarter", "territory", "previous_total", "current_t
 KEYS = ["year", "month", "territory"]
 COUNTIES = {"Alytaus aps.", "Kauno aps.", "Klaipėdos aps.", "Marijampolės aps.",
             "Panevėžio aps.", "Šiaulių aps.", "Tauragės aps.", "Telšių aps.",
-            "Utenos aps.", "Vilniaus aps.", "Visa Lietuva"}
+            "Utenos aps.", "Vilniaus aps.", "Visa Lietuva", "LKPB", "PD prie VRM"}
 PAIRS = [(6, 7), (8, 9), (10, 11)]  # BK 260, 260¹, 261
 ARTICLE_TITLES = ("260", "260", "261")
 
@@ -69,8 +69,8 @@ def parse_report(content: bytes, year: int, month: int) -> pd.DataFrame:
                    .str.replace(r"\s+", " ", regex=True).str.strip()
                    .replace({"Polic. įstaigos": "Visa Lietuva"}))
     mask = territories.isin(COUNTIES)
-    if int(mask.sum()) != 11 or set(territories[mask]) != COUNTIES:
-        raise ValueError("Netikėtas policijos teritorijų sąrašas")
+    if int(mask.sum()) != 13 or set(territories[mask]) != COUNTIES:
+        raise ValueError("Netikėtas policijos teritorijų ir įstaigų sąrašas")
     selected = raw.loc[mask]
     previous = sum(
         (number(selected[p].reset_index(drop=True), f"{year}-{month:02d} {p}")
@@ -98,7 +98,7 @@ def parse_report(content: bytes, year: int, month: int) -> pd.DataFrame:
 def validate_dataset(df: pd.DataFrame) -> None:
     if set(df.columns) != set(COLUMNS) or df.duplicated(KEYS).any():
         raise ValueError("CSV struktūra neteisinga arba yra dublikatų")
-    if (df.groupby(["year", "month"])["territory"].nunique() != 11).any():
+    if (df.groupby(["year", "month"])["territory"].nunique() != 13).any():
         raise ValueError("Trūksta kurio nors laikotarpio teritorijų")
     expected = ((df["current_total"] - df["previous_total"])
                 / df["previous_total"].replace(0, np.nan) * 100)
@@ -145,7 +145,7 @@ def main() -> None:
                     added = pd.concat(replacements, ignore_index=True)
                     previous = added[(added["year"] == previous_period[0]) &
                                      (added["month"] == previous_period[1])]
-                if len(previous) != 11:
+                if len(previous) != 13:
                     raise ValueError("Trūksta ankstesnio laikotarpio patikrai")
                 a = parsed.sort_values("territory").reset_index(drop=True)
                 b = previous.sort_values("territory").reset_index(drop=True)
@@ -155,14 +155,14 @@ def main() -> None:
 
                 # Ar ankstesnių metų to paties mėnesio skaičiai suderinami?
                 older = old[(old["year"] == year - 1) & (old["month"] == month)]
-                if len(older) == 11:
+                if len(older) == 13:
                     matched = a[["territory", "previous_total"]].merge(
                         older[["territory", "current_total"]], on="territory",
                         validate="one_to_one")
                     if not np.allclose(matched["previous_total"], matched["current_total"]):
                         raise ValueError("Metų palyginimui naudojami skaičiai skiriasi nuo ankstesnės IRD ataskaitos")
             replacements.append(parsed)
-            print(f"OK {year}-{month:02d}: 11 teritorijų")
+            print(f"OK {year}-{month:02d}: 13 teritorijų / įstaigų")
         except Exception as exc:
             problems.append(f"{year}-{month:02d}: {exc}")
             print("KLAIDA:", problems[-1], file=sys.stderr)
