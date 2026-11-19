@@ -10,9 +10,9 @@ GREEN = "#287b59"
 ORANGE = "#e17b35"
 YEAR_COLORS = {2024: "#5772cf", 2025: "#db684b", 2026: "#1d9575"}
 
-@st.cache_data
-
-def load_data():
+@st.cache_data(ttl=300)
+def load_data(file_version):
+    # Talpyklos raktas priklauso nuo CSV versijos; neatiduodame senų duomenų.
     path = Path(__file__).resolve().parent / "pd_rodikliai.csv"
     data = pd.read_csv(path)
     required = {"indicator", "territory", "year", "month", "value", "unit", "registered", "investigated", "remaining", "change_days", "case_count"}
@@ -24,7 +24,9 @@ def load_data():
     return data
 
 try:
-    df = load_data()
+    csv_path = Path(__file__).resolve().parent / "pd_rodikliai.csv"
+    csv_stat = csv_path.stat()
+    df = load_data((csv_stat.st_mtime_ns, csv_stat.st_size))
 except Exception as exc:
     st.error(f"Nepavyko įkelti duomenų: {exc}")
     st.stop()
