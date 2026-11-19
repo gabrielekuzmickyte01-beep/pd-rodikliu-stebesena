@@ -33,8 +33,13 @@ st.title("Policijos veiklos rodiklių stebėsena")
 st.caption("Viešai skelbiami IRD duomenys · bandomoji versija")
 st.info("Duomenys kaupiamieji: pasirinkus, pavyzdžiui, rugsėjį, rodomas laikotarpis nuo sausio iki rugsėjo. Tai nėra vien rugsėjo mėnesio rezultatai.", icon="ℹ️")
 
-indicators = df["indicator"].drop_duplicates().tolist()
+from drugs_ui import INDICATOR as DRUGS_INDICATOR, render as render_drugs
+
+indicators = df["indicator"].drop_duplicates().tolist() + [DRUGS_INDICATOR]
 indicator = st.selectbox("Stebimas rodiklis", indicators, index=indicators.index("Sunkūs ir labai sunkūs nusikaltimai") if "Sunkūs ir labai sunkūs nusikaltimai" in indicators else 0)
+if indicator == DRUGS_INDICATOR:
+    render_drugs()
+    st.stop()
 subset = df.loc[df["indicator"] == indicator].copy()
 
 col_year, col_month, col_territory = st.columns([1, 1, 2])
