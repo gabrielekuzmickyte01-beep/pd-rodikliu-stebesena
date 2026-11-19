@@ -53,7 +53,7 @@ with col_month:
     month = st.selectbox("Laikotarpio pabaiga", months, format_func=lambda m: MONTHS[m])
 with col_territory:
     territories = ["Visa Lietuva"] + sorted([t for t in subset["territory"].unique() if t != "Visa Lietuva"])
-    territory = st.selectbox("Teritorija istoriniam palyginimui", territories)
+    territory = st.selectbox("Teritorija / įstaiga istoriniam palyginimui", territories, format_func=lambda value: "Policijos sistemos" if value == "Visa Lietuva" else value)
 
 period = subset[(subset["year"] == year) & (subset["month"] == month)]
 country = period.loc[period["territory"] == "Visa Lietuva"]
@@ -72,7 +72,7 @@ selected_record = selected_record.iloc[0]
 
 c1, c2, c3 = st.columns(3)
 c1.metric("Pasirinktos teritorijos rodiklis", f"{float(selected_record['value']):.2f} d." if is_duration else f"{float(selected_record['value']):.1f} %")
-c2.metric("Visų policijos įstaigų rodiklis", f"{country_value:.2f} d." if is_duration else f"{country_value:.1f} %")
+c2.metric("Policijos sistemos rodiklis", f"{country_value:.2f} d." if is_duration else f"{country_value:.1f} %")
 diff = float(selected_record["value"]) - country_value
 c3.metric("Skirtumas nuo bendro rodiklio", f"{diff:+.2f} d." if is_duration else f"{diff:+.1f} proc. p.")
 
@@ -88,13 +88,13 @@ else:
     hover = "<b>%{y}</b><br>Ištyrimo rodiklis: %{x:.1f} %<br>Registruota: %{customdata[0]:.0f}<br>Ištirta: %{customdata[1]:.0f}<br>Iš ankstesnių laikotarpių ištirta: %{customdata[2]:.0f}<extra></extra>"
     extras = counties[["registered", "investigated", "remaining"]].to_numpy()
 fig_bar.add_trace(go.Bar(x=counties["value"], y=counties["territory"], orientation="h", marker=dict(color=counties["value"], colorscale="Greens_r" if is_duration else "Greens", showscale=False), customdata=extras, hovertemplate=hover))
-fig_bar.add_vline(x=country_value, line_dash="dash", line_color=ORANGE, line_width=2, annotation_text=f"Visa Lietuva: {country_value:.2f} d." if is_duration else f"Visa Lietuva: {country_value:.1f} %", annotation_position="top")
+fig_bar.add_vline(x=country_value, line_dash="dash", line_color=ORANGE, line_width=2, annotation_text=f"Policijos sistemos: {country_value:.2f} d." if is_duration else f"Visa Lietuva: {country_value:.1f} %", annotation_position="top")
 fig_bar.update_layout(template="plotly_white", height=510, xaxis_title="Vidutinė trukmė (dienomis)" if is_duration else "Ištyrimo rodiklis (%)", yaxis_title="", margin=dict(l=5, r=20, t=35, b=35), showlegend=False)
 fig_bar.update_xaxes(rangemode="tozero")
 st.plotly_chart(fig_bar, width="stretch", theme=None, config={"displaylogo": False})
-st.caption("Oranžinė punktyrinė linija – visų policijos įstaigų rodiklis (IRD eilutė „Polic. įstaigos“), o ne 10 apskričių aritmetinis vidurkis.")
+st.caption("Oranžinė punktyrinė linija – policijos sistemos rodiklis (IRD eilutė „Polic. įstaigos“), apimantis ne vien 10 apskričių VPK.")
 
-st.subheader(f"Istorinė dinamika – {territory}")
+st.subheader(f"Istorinė dinamika – {'Policijos sistemos' if territory == 'Visa Lietuva' else territory}")
 trend = subset[subset["territory"] == territory].sort_values(["year", "month"])
 fig_line = go.Figure()
 for y in sorted(trend["year"].unique()):
@@ -111,7 +111,8 @@ st.plotly_chart(fig_line, width="stretch", theme=None, config={"displaylogo": Fa
 
 with st.expander("Peržiūrėti pasirinkto laikotarpio skaičius ir šaltinio pastabas"):
     columns = ["territory", "value", "unit"] + (["change_days", "case_count"] if is_duration else ["registered", "investigated", "remaining"])
-    table = period[columns].sort_values("territory").rename(columns={"remaining": "Iš ankstesnių laikotarpių ištirta"})
+    table = period[columns].sort_values("territory").rename(columns={"remaining": "Iš ankstesnių laikotarpių ištirta"}).copy()
+    table["territory"] = table["territory"].replace({"Visa Lietuva": "Policijos sistemos"})
     st.dataframe(table, hide_index=True, width="stretch")
     st.caption("Nusikalstamų veikų tyrimo trukmės ataskaitos stulpelio „nusikalstamų veikų skaičius“ tiksli metodinė apibrėžtis turi būti patvirtinta prieš oficialų naudojimą. Procentai gali viršyti 100 %; jų automatiškai neribojame.")
 
