@@ -71,15 +71,15 @@ if len(selected_record) != 1:
 selected_record = selected_record.iloc[0]
 
 c1, c2, c3 = st.columns(3)
-c1.metric("Pasirinktos teritorijos rodiklis", f"{float(selected_record['value']):.2f} d." if is_duration else f"{float(selected_record['value']):.1f} %")
+c1.metric("Pasirinktos teritorijos / įstaigos rodiklis", "Neskaičiuojama" if pd.isna(selected_record["value"]) else (f"{float(selected_record['value']):.2f} d." if is_duration else f"{float(selected_record['value']):.1f} %"))
 c2.metric("Policijos sistemos rodiklis", f"{country_value:.2f} d." if is_duration else f"{country_value:.1f} %")
-diff = float(selected_record["value"]) - country_value
-c3.metric("Skirtumas nuo bendro rodiklio", f"{diff:+.2f} d." if is_duration else f"{diff:+.1f} proc. p.")
+diff = float(selected_record["value"]) - country_value if pd.notna(selected_record["value"]) else float("nan")
+c3.metric("Skirtumas nuo bendro rodiklio", "Neskaičiuojama" if pd.isna(diff) else (f"{diff:+.2f} d." if is_duration else f"{diff:+.1f} proc. p."))
 
-st.subheader("Apskričių palyginimas")
-counties = period.loc[period["territory"] != "Visa Lietuva"].sort_values("value", ascending=True).copy()
-if len(counties) != 10:
-    st.warning(f"Tikėtasi 10 apskričių, bet rasta {len(counties)}.")
+st.subheader("Apskričių VPK, LKPB ir PD prie VRM palyginimas")
+counties = period.loc[(period["territory"] != "Visa Lietuva") & period["value"].notna()].sort_values("value", ascending=True).copy()
+if len(period.loc[period["territory"] != "Visa Lietuva"]) != 12:
+    st.warning("Tikėtasi 10 apskričių VPK ir 2 papildomų įstaigų.")
 fig_bar = go.Figure()
 if is_duration:
     hover = "<b>%{y}</b><br>Vidutinė tyrimo trukmė: %{x:.2f} d.<br>Pokytis nuo ankstesnių metų: %{customdata[0]:+.2f} d.<br>Ataskaitoje nurodytų veikų skaičius: %{customdata[1]:.0f}<extra></extra>"
@@ -92,7 +92,7 @@ fig_bar.add_vline(x=country_value, line_dash="dash", line_color=ORANGE, line_wid
 fig_bar.update_layout(template="plotly_white", height=510, xaxis_title="Vidutinė trukmė (dienomis)" if is_duration else "Ištyrimo rodiklis (%)", yaxis_title="", margin=dict(l=5, r=20, t=35, b=35), showlegend=False)
 fig_bar.update_xaxes(rangemode="tozero")
 st.plotly_chart(fig_bar, width="stretch", theme=None, config={"displaylogo": False})
-st.caption("Oranžinė punktyrinė linija – policijos sistemos rodiklis (IRD eilutė „Polic. įstaigos“), apimantis ne vien 10 apskričių VPK.")
+st.caption("Oranžinė punktyrinė linija – IRD policijos sistemos rodiklis („Polic. įstaigos“). Jis jau apima apskričių VPK, LKPB ir PD prie VRM duomenis; jų papildomai nesumuojame. Kai įstaigos rodiklis neapskaičiuojamas, stulpelis nerodomas.")
 
 st.subheader(f"Istorinė dinamika – {'Policijos sistemos' if territory == 'Visa Lietuva' else territory}")
 trend = subset[subset["territory"] == territory].sort_values(["year", "month"])
