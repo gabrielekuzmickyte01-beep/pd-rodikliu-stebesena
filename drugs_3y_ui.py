@@ -25,11 +25,19 @@ def load_sixth(file_version):
         raise ValueError("Ne visi laikotarpiai turi 13 įstaigų / teritorijų")
     if (data.groupby(["year", "month"])["territory"].apply(lambda x: TOTAL in set(x)) == False).any():
         raise ValueError("Trūksta bendro policijos sistemos rodiklio")
-    investigated = data[["investigated_year_1", "investigated_year_2", "investigated_current"]].sum(axis=1)
-    registered = data[["registered_year_1", "registered_year_2", "registered_current"]].sum(axis=1)
-    if not np.allclose(investigated, data["investigated_3y"]) or not np.allclose(registered, data["registered_3y"]):
-        raise ValueError("Trejų metų sumos CSV neatitinka jų sudedamųjų dalių")
-    expected = investigated / registered.replace(0, np.nan) * 100
+    component_columns = ["investigated_year_1", "investigated_year_2", "investigated_current", "registered_year_1", "registered_year_2", "registered_current"]
+    # Ankstesnių metų istoriniame CSV yra tik trejų metų sumos.
+    # Sudedamąsias dalis tikriname tik ten, kur jos visos pateiktos.
+    detailed = data[component_columns].notna().all(axis=1)
+    partial = data[component_columns].notna().any(axis=1) & ~detailed
+    if partial.any():
+        raise ValueError("Istorinio įrašo metinės sudedamosios dalys nepilnos")
+    if detailed.any():
+        investigated = data.loc[detailed, ["investigated_year_1", "investigated_year_2", "investigated_current"]].sum(axis=1)
+        registered = data.loc[detailed, ["registered_year_1", "registered_year_2", "registered_current"]].sum(axis=1)
+        if not np.allclose(investigated, data.loc[detailed, "investigated_3y"]) or not np.allclose(registered, data.loc[detailed, "registered_3y"]):
+            raise ValueError("Trejų metų sumos CSV neatitinka jų sudedamųjų dalių")
+    expected = data["investigated_3y"] / data["registered_3y"].replace(0, np.nan) * 100
     if not np.isclose(expected, data["value"], atol=0.011, rtol=0, equal_nan=True).all():
         raise ValueError("Rodiklio procentai neatitinka formulės")
     return data
@@ -117,4 +125,5 @@ def render():
     with st.expander("Peržiūrėti pasirinkto laikotarpio skaičius ir metodiką"):
         table = period[["territory", "investigated_year_1", "investigated_year_2", "investigated_current", "registered_year_1", "registered_year_2", "registered_current", "investigated_3y", "registered_3y", "value"]].sort_values("territory")
         st.dataframe(table, hide_index=True, width="stretch")
+        st.caption("2024–2025 m. pateikiamos patikrintos trejų metų sumos; jų metinės sudedamosios dalys šiame CSV neišsaugotos.")
         st.caption("Formulė: (per paskutinius 3 metus ištirta / per paskutinius 3 metus užregistruota) × 100. 2026 m. – 2024 m. ir 2025 m. metiniai bei 2026 m. pasirinkto laikotarpio duomenys. Šaltinis: IRD EK-ITĮ, 12 ir 13 psl., BK 260, 260¹ ir 261 str.")
