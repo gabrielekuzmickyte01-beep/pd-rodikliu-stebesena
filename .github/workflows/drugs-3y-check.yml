@@ -1,0 +1,43 @@
+name: Šeštojo rodiklio patikra
+
+on:
+  push:
+    paths:
+      - app.py
+      - drugs_3y_ui.py
+      - update_drugs_3y.py
+      - narkotiku_3_metu_istyrimas.csv
+      - .github/workflows/drugs-3y-check.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Įdiegti priklausomybes
+        run: python -m pip install -r requirements.txt -r updater-requirements.txt
+      - name: Python sintaksės patikra
+        run: python -m py_compile app.py drugs_3y_ui.py update_drugs_3y.py
+      - name: CSV ir formulės patikra
+        run: |
+          python - <<'PY'
+          from drugs_3y_ui import CSV, load_sixth
+          from update_drugs_3y import validate
+          stat = CSV.stat()
+          df = load_sixth((stat.st_mtime_ns, stat.st_size))
+          validate(df)
+          assert len(df) == 130
+          assert set(df.year) == {2026}
+          assert set(df.month) == set(range(1, 11))
+          row = df[(df.year == 2026) & (df.month == 10) & (df.territory == "Policijos sistemos")].iloc[0]
+          assert (row.investigated_3y, row.registered_3y, row.value) == (1586, 2173, 72.99)
+          print("Šeštojo rodiklio 130 eilučių, 13 įstaigų ir 2026 m. spalio skaičiavimai patvirtinti")
+          PY
