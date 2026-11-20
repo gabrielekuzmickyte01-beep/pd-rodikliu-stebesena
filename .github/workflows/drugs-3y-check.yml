@@ -34,10 +34,10 @@ jobs:
           stat = CSV.stat()
           df = load_sixth((stat.st_mtime_ns, stat.st_size))
           validate(df)
-          assert len(df) == 130
-          assert set(df.year) == {2026}
+          assert len(df) == 390
+          assert set(df.year) == {2024, 2025, 2026}
           assert set(df.month) == set(range(1, 11))
           row = df[(df.year == 2026) & (df.month == 10) & (df.territory == "Policijos sistemos")].iloc[0]
           assert (row.investigated_3y, row.registered_3y, row.value) == (1586, 2173, 72.99)
-          print("Šeštojo rodiklio 130 eilučių, 13 įstaigų ir 2026 m. spalio skaičiavimai patvirtinti")
+          print("Šeštojo rodiklio 390 eilučių, 13 įstaigų, 2024–2026 m. istorija ir 2026 m. spalio skaičiavimai patvirtinti")
           PY
