@@ -108,11 +108,17 @@ def validate(data: pd.DataFrame) -> None:
         raise ValueError("Neteisinga CSV struktūra ar dublikatai")
     if (data.groupby(["year", "month"])["territory"].nunique() != 13).any():
         raise ValueError("Trūksta kurios nors įstaigos")
-    a = data[["investigated_year_1", "investigated_year_2", "investigated_current"]].sum(axis=1)
-    b = data[["registered_year_1", "registered_year_2", "registered_current"]].sum(axis=1)
-    if not np.allclose(a, data["investigated_3y"]) or not np.allclose(b, data["registered_3y"]):
-        raise ValueError("Neteisinga trijų metų suma")
-    expected = a / b.replace(0, np.nan) * 100
+    components = ["investigated_year_1", "investigated_year_2", "investigated_current", "registered_year_1", "registered_year_2", "registered_current"]
+    detailed = data[components].notna().all(axis=1)
+    partial = data[components].notna().any(axis=1) & ~detailed
+    if partial.any():
+        raise ValueError("Metinės duomenų sudedamosios dalys nepilnos")
+    if detailed.any():
+        a = data.loc[detailed, ["investigated_year_1", "investigated_year_2", "investigated_current"]].sum(axis=1)
+        b = data.loc[detailed, ["registered_year_1", "registered_year_2", "registered_current"]].sum(axis=1)
+        if not np.allclose(a, data.loc[detailed, "investigated_3y"]) or not np.allclose(b, data.loc[detailed, "registered_3y"]):
+            raise ValueError("Neteisinga trijų metų suma")
+    expected = data["investigated_3y"] / data["registered_3y"].replace(0, np.nan) * 100
     if not np.isclose(data["value"], expected, rtol=0, atol=0.011, equal_nan=True).all():
         raise ValueError("Neteisinga rodiklio procentinė reikšmė")
     for (_year, _month), group in data.groupby(["year", "month"]):
