@@ -92,9 +92,10 @@ def render():
     st.caption("Oranžinė linija – oficialus bendras Policijos sistemos rodiklis. Įstaigų procentai nesumuojami.")
 
     st.subheader(f"Istorinė rodiklio dinamika – {territory}")
+    st.caption("Istoriniame grafike kiekvieniems metams rodome visus turimus mėnesius. Viršuje pasirinktas mėnuo taikomas įstaigų palyginimui.")
     trend = go.Figure()
     for historical_year in sorted(data.year.unique()):
-        segment = data[(data.year == historical_year) & (data.territory == territory) & (data.month <= month)].sort_values("month")
+        segment = data[(data.year == historical_year) & (data.territory == territory)].sort_values("month")
         if segment.empty:
             continue
         color = YEAR_COLORS.get(int(historical_year), "#218654")
@@ -106,7 +107,7 @@ def render():
             connectgaps=False
         ))
         if territory != TOTAL:
-            baseline = data[(data.year == historical_year) & (data.territory == TOTAL) & (data.month <= month)].sort_values("month")
+            baseline = data[(data.year == historical_year) & (data.territory == TOTAL)].sort_values("month")
             trend.add_trace(go.Scatter(
                 x=baseline.month, y=baseline.value, mode="lines",
                 name=f"{historical_year} m. – Policijos sistemos",
