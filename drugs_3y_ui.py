@@ -125,6 +125,7 @@ def render():
 
     with st.expander("Peržiūrėti pasirinkto laikotarpio skaičius ir metodiką"):
         table = period[["territory", "investigated_year_1", "investigated_year_2", "investigated_current", "registered_year_1", "registered_year_2", "registered_current", "investigated_3y", "registered_3y", "value"]].sort_values("territory")
+        table = table.rename(columns={"territory": "Teritorija / įstaiga", "investigated_year_1": "Ištirta pirmaisiais metais", "investigated_year_2": "Ištirta antraisiais metais", "investigated_current": "Ištirta einamaisiais metais", "registered_year_1": "Užregistruota pirmaisiais metais", "registered_year_2": "Užregistruota antraisiais metais", "registered_current": "Užregistruota einamaisiais metais", "investigated_3y": "Ištirta per 3 metus", "registered_3y": "Užregistruota per 3 metus", "value": "Rodiklis (%)"})
         st.dataframe(table, hide_index=True, width="stretch")
         st.caption("2024–2025 m. pateikiamos patikrintos trejų metų sumos; jų metinės sudedamosios dalys šiame CSV neišsaugotos.")
         st.caption("Formulė: (per paskutinius 3 metus ištirta / per paskutinius 3 metus užregistruota) × 100. 2026 m. – 2024 m. ir 2025 m. metiniai bei 2026 m. pasirinkto laikotarpio duomenys. Šaltinis: IRD EK-ITĮ, 12 ir 13 psl., BK 260, 260¹ ir 261 str.")
