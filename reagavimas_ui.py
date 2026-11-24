@@ -112,5 +112,6 @@ def render(category):
                         legend=dict(title="Metai",orientation="v",x=1.02,y=1))
     st.plotly_chart(trend, width="stretch", theme=None, config={"displaylogo": False})
     with st.expander("Peržiūrėti laikotarpio skaičius ir metodiką"):
-        st.dataframe(period[["territory","on_time","total_events","value","target","source_file"]].sort_values("territory"),hide_index=True,width="stretch")
+        table = period[["territory","on_time","total_events","value","target"]].sort_values("territory").rename(columns={"territory": "Teritorija / įstaiga", "on_time": "Laiku reaguota", "total_events": "Visi įvykiai", "value": "Rodiklis (%)", "target": "Siektina reikšmė (%)"})
+        st.dataframe(table, hide_index=True, width="stretch")
         st.caption("Formulė: laiku reaguota / visi kategorijos įvykiai × 100. A: iki 12 min. mieste, 25 min. kitose teritorijose. B: iki 20 min. mieste, 40 min. kitose teritorijose. Naudojami VTB / koordinatoriaus duomenys.")
