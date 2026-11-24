@@ -1,0 +1,243 @@
+year,quarter,category,territory,on_time,total_events,value,target,source_file
+2024,1,A,Alytaus aps. VPK,460,496,92.74193548387096,90,Reagavimas.2024.xlsx
+2024,1,A,Kauno aps. VPK,973,990,98.28282828282828,90,Reagavimas.2024.xlsx
+2024,1,A,Klaipėdos aps. VPK,531,562,94.48398576512456,90,Reagavimas.2024.xlsx
+2024,1,A,Marijampolės aps. VPK,287,292,98.28767123287672,90,Reagavimas.2024.xlsx
+2024,1,A,Panevėžio aps. VPK,619,636,97.32704402515722,90,Reagavimas.2024.xlsx
+2024,1,A,Policijos sistemos,5636,5976,94.31057563587684,90,Reagavimas.2024.xlsx
+2024,1,A,Tauragės aps. VPK,168,169,99.40828402366864,90,Reagavimas.2024.xlsx
+2024,1,A,Telšių aps. VPK,190,208,91.34615384615384,90,Reagavimas.2024.xlsx
+2024,1,A,Utenos aps. VPK,293,294,99.65986394557824,90,Reagavimas.2024.xlsx
+2024,1,A,Vilniaus aps. VPK,1722,1899,90.67930489731437,90,Reagavimas.2024.xlsx
+2024,1,A,Šiaulių aps. VPK,393,430,91.3953488372093,90,Reagavimas.2024.xlsx
+2024,1,B,Alytaus aps. VPK,1602,1667,96.1007798440312,93,Reagavimas.2024.xlsx
+2024,1,B,Kauno aps. VPK,4295,4366,98.3737975263399,93,Reagavimas.2024.xlsx
+2024,1,B,Klaipėdos aps. VPK,2371,2436,97.33169129720854,93,Reagavimas.2024.xlsx
+2024,1,B,Marijampolės aps. VPK,1130,1146,98.60383944153578,93,Reagavimas.2024.xlsx
+2024,1,B,Panevėžio aps. VPK,1935,1949,99.28168291431504,93,Reagavimas.2024.xlsx
+2024,1,B,Policijos sistemos,22527,23269,96.81120804503848,93,Reagavimas.2024.xlsx
+2024,1,B,Tauragės aps. VPK,752,764,98.42931937172776,93,Reagavimas.2024.xlsx
+2024,1,B,Telšių aps. VPK,1118,1167,95.8011996572408,93,Reagavimas.2024.xlsx
+2024,1,B,Utenos aps. VPK,1125,1125,100.0,93,Reagavimas.2024.xlsx
+2024,1,B,Vilniaus aps. VPK,6039,6374,94.74427361154692,93,Reagavimas.2024.xlsx
+2024,1,B,Šiaulių aps. VPK,2160,2275,94.94505494505492,93,Reagavimas.2024.xlsx
+2024,2,A,Alytaus aps. VPK,997,1064,93.703007518797,90,Reagavimas.2024.xlsx
+2024,2,A,Kauno aps. VPK,1986,2037,97.4963181148748,90,Reagavimas.2024.xlsx
+2024,2,A,Klaipėdos aps. VPK,1137,1205,94.35684647302904,90,Reagavimas.2024.xlsx
+2024,2,A,Marijampolės aps. VPK,523,532,98.30827067669172,90,Reagavimas.2024.xlsx
+2024,2,A,Panevėžio aps. VPK,1372,1416,96.89265536723164,90,Reagavimas.2024.xlsx
+2024,2,A,Policijos sistemos,11655,12455,93.57687675632276,90,Reagavimas.2024.xlsx
+2024,2,A,Tauragės aps. VPK,342,344,99.4186046511628,90,Reagavimas.2024.xlsx
+2024,2,A,Telšių aps. VPK,349,388,89.94845360824742,90,Reagavimas.2024.xlsx
+2024,2,A,Utenos aps. VPK,628,629,99.84101748807632,90,Reagavimas.2024.xlsx
+2024,2,A,Vilniaus aps. VPK,3542,4006,88.41737393909136,90,Reagavimas.2024.xlsx
+2024,2,A,Šiaulių aps. VPK,779,834,93.4052757793765,90,Reagavimas.2024.xlsx
+2024,2,B,Alytaus aps. VPK,3262,3368,96.85273159144892,93,Reagavimas.2024.xlsx
+2024,2,B,Kauno aps. VPK,8847,8966,98.67276377425831,93,Reagavimas.2024.xlsx
+2024,2,B,Klaipėdos aps. VPK,4829,4971,97.14343190504928,93,Reagavimas.2024.xlsx
+2024,2,B,Marijampolės aps. VPK,2239,2263,98.93946089262042,93,Reagavimas.2024.xlsx
+2024,2,B,Panevėžio aps. VPK,3929,3968,99.0171370967742,93,Reagavimas.2024.xlsx
+2024,2,B,Policijos sistemos,46434,48299,96.13863641069172,93,Reagavimas.2024.xlsx
+2024,2,B,Tauragės aps. VPK,1614,1639,98.47467968273338,93,Reagavimas.2024.xlsx
+2024,2,B,Telšių aps. VPK,2286,2411,94.8154292824554,93,Reagavimas.2024.xlsx
+2024,2,B,Utenos aps. VPK,2436,2439,99.87699876998772,93,Reagavimas.2024.xlsx
+2024,2,B,Vilniaus aps. VPK,12438,13467,92.35910002227668,93,Reagavimas.2024.xlsx
+2024,2,B,Šiaulių aps. VPK,4554,4807,94.73684210526316,93,Reagavimas.2024.xlsx
+2024,3,A,Alytaus aps. VPK,1551,1650,94.0,90,Reagavimas.2024.xlsx
+2024,3,A,Kauno aps. VPK,3084,3150,97.90476190476193,90,Reagavimas.2024.xlsx
+2024,3,A,Klaipėdos aps. VPK,1773,1868,94.91434689507494,90,Reagavimas.2024.xlsx
+2024,3,A,Marijampolės aps. VPK,779,795,97.9874213836478,90,Reagavimas.2024.xlsx
+2024,3,A,Panevėžio aps. VPK,2080,2145,96.96969696969695,90,Reagavimas.2024.xlsx
+2024,3,A,Policijos sistemos,17856,19115,93.41354956840178,90,Reagavimas.2024.xlsx
+2024,3,A,Tauragės aps. VPK,529,534,99.06367041198502,90,Reagavimas.2024.xlsx
+2024,3,A,Telšių aps. VPK,519,571,90.89316987740806,90,Reagavimas.2024.xlsx
+2024,3,A,Utenos aps. VPK,975,977,99.79529170931424,90,Reagavimas.2024.xlsx
+2024,3,A,Vilniaus aps. VPK,5418,6187,87.5707127848715,90,Reagavimas.2024.xlsx
+2024,3,A,Šiaulių aps. VPK,1148,1238,92.73021001615508,90,Reagavimas.2024.xlsx
+2024,3,B,Alytaus aps. VPK,5144,5325,96.60093896713616,93,Reagavimas.2024.xlsx
+2024,3,B,Kauno aps. VPK,13898,14076,98.7354362034669,93,Reagavimas.2024.xlsx
+2024,3,B,Klaipėdos aps. VPK,7558,7772,97.24652599073598,93,Reagavimas.2024.xlsx
+2024,3,B,Marijampolės aps. VPK,3495,3525,99.14893617021276,93,Reagavimas.2024.xlsx
+2024,3,B,Panevėžio aps. VPK,6133,6212,98.72826786864134,93,Reagavimas.2024.xlsx
+2024,3,B,Policijos sistemos,72367,75359,96.0296713066787,93,Reagavimas.2024.xlsx
+2024,3,B,Tauragės aps. VPK,2510,2552,98.35423197492165,93,Reagavimas.2024.xlsx
+2024,3,B,Telšių aps. VPK,3571,3758,95.02394890899414,93,Reagavimas.2024.xlsx
+2024,3,B,Utenos aps. VPK,3864,3873,99.76762199845082,93,Reagavimas.2024.xlsx
+2024,3,B,Vilniaus aps. VPK,19132,20801,91.97634729099563,93,Reagavimas.2024.xlsx
+2024,3,B,Šiaulių aps. VPK,7061,7464,94.60075026795283,93,Reagavimas.2024.xlsx
+2024,4,A,Alytaus aps. VPK,2002,2118,94.52313503305004,90,Reagavimas.2024.xlsx
+2024,4,A,Kauno aps. VPK,4105,4196,97.83126787416587,90,Reagavimas.2024.xlsx
+2024,4,A,Klaipėdos aps. VPK,2367,2476,95.5977382875606,90,Reagavimas.2024.xlsx
+2024,4,A,Marijampolės aps. VPK,1036,1057,98.01324503311258,90,Reagavimas.2024.xlsx
+2024,4,A,Panevėžio aps. VPK,2752,2842,96.83321604503872,90,Reagavimas.2024.xlsx
+2024,4,A,Policijos sistemos,23564,25149,93.69756252733708,90,Reagavimas.2024.xlsx
+2024,4,A,Tauragės aps. VPK,724,730,99.17808219178085,90,Reagavimas.2024.xlsx
+2024,4,A,Telšių aps. VPK,683,752,90.82446808510636,90,Reagavimas.2024.xlsx
+2024,4,A,Utenos aps. VPK,1243,1246,99.75922953451042,90,Reagavimas.2024.xlsx
+2024,4,A,Vilniaus aps. VPK,7182,8143,88.19845265872529,90,Reagavimas.2024.xlsx
+2024,4,A,Šiaulių aps. VPK,1470,1589,92.51101321585902,90,Reagavimas.2024.xlsx
+2024,4,B,Alytaus aps. VPK,6846,7065,96.90021231422506,93,Reagavimas.2024.xlsx
+2024,4,B,Kauno aps. VPK,18505,18740,98.74599786552828,93,Reagavimas.2024.xlsx
+2024,4,B,Klaipėdos aps. VPK,9967,10224,97.48630672926448,93,Reagavimas.2024.xlsx
+2024,4,B,Marijampolės aps. VPK,4636,4679,99.08100021372088,93,Reagavimas.2024.xlsx
+2024,4,B,Panevėžio aps. VPK,8019,8117,98.79265738573363,93,Reagavimas.2024.xlsx
+2024,4,B,Policijos sistemos,96176,99939,96.23470316893304,93,Reagavimas.2024.xlsx
+2024,4,B,Tauragės aps. VPK,3360,3410,98.53372434017597,93,Reagavimas.2024.xlsx
+2024,4,B,Telšių aps. VPK,4761,5007,95.0868783702816,93,Reagavimas.2024.xlsx
+2024,4,B,Utenos aps. VPK,5120,5134,99.72730814179975,93,Reagavimas.2024.xlsx
+2024,4,B,Vilniaus aps. VPK,25448,27547,92.38029549497224,93,Reagavimas.2024.xlsx
+2024,4,B,Šiaulių aps. VPK,9514,10016,94.98801916932908,93,Reagavimas.2024.xlsx
+2025,1,A,Alytaus aps. VPK,505,526,96.00760456273764,90,reagavimas.2025.xlsx
+2025,1,A,Kauno aps. VPK,1185,1221,97.05159705159704,90,reagavimas.2025.xlsx
+2025,1,A,Klaipėdos aps. VPK,594,619,95.96122778675284,90,reagavimas.2025.xlsx
+2025,1,A,Marijampolės aps. VPK,294,301,97.67441860465117,90,reagavimas.2025.xlsx
+2025,1,A,Panevėžio aps. VPK,685,710,96.47887323943662,90,reagavimas.2025.xlsx
+2025,1,A,Policijos sistemos,5986,6331,94.5506239140736,90,reagavimas.2025.xlsx
+2025,1,A,Tauragės aps. VPK,193,195,98.97435897435898,90,reagavimas.2025.xlsx
+2025,1,A,Telšių aps. VPK,213,226,94.24778761061948,90,reagavimas.2025.xlsx
+2025,1,A,Utenos aps. VPK,297,297,100.0,90,reagavimas.2025.xlsx
+2025,1,A,Vilniaus aps. VPK,1633,1820,89.72527472527473,90,reagavimas.2025.xlsx
+2025,1,A,Šiaulių aps. VPK,387,416,93.02884615384616,90,reagavimas.2025.xlsx
+2025,1,B,Alytaus aps. VPK,1692,1736,97.46543778801843,93,reagavimas.2025.xlsx
+2025,1,B,Kauno aps. VPK,4430,4480,98.88392857142856,93,reagavimas.2025.xlsx
+2025,1,B,Klaipėdos aps. VPK,2297,2336,98.3304794520548,93,reagavimas.2025.xlsx
+2025,1,B,Marijampolės aps. VPK,1322,1334,99.10044977511244,93,reagavimas.2025.xlsx
+2025,1,B,Panevėžio aps. VPK,1810,1835,98.63760217983652,93,reagavimas.2025.xlsx
+2025,1,B,Policijos sistemos,22447,23100,97.17316017316018,93,reagavimas.2025.xlsx
+2025,1,B,Tauragės aps. VPK,847,856,98.94859813084112,93,reagavimas.2025.xlsx
+2025,1,B,Telšių aps. VPK,1144,1207,94.7804473902237,93,reagavimas.2025.xlsx
+2025,1,B,Utenos aps. VPK,1139,1139,100.0,93,reagavimas.2025.xlsx
+2025,1,B,Vilniaus aps. VPK,5664,5994,94.49449449449448,93,reagavimas.2025.xlsx
+2025,1,B,Šiaulių aps. VPK,2102,2183,96.28950984883188,93,reagavimas.2025.xlsx
+2025,2,A,Alytaus aps. VPK,1045,1096,95.34671532846716,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,A,Kauno aps. VPK,2662,2760,96.44927536231884,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,A,Klaipėdos aps. VPK,1378,1431,96.29629629629628,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,A,Marijampolės aps. VPK,582,593,98.1450252951096,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,A,Panevėžio aps. VPK,1312,1356,96.7551622418879,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,A,Policijos sistemos,12562,13219,95.02988123156064,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,A,Tauragės aps. VPK,406,412,98.54368932038837,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,A,Telšių aps. VPK,415,440,94.31818181818184,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,A,Utenos aps. VPK,575,576,99.82638888888889,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,A,Vilniaus aps. VPK,3383,3713,91.1123081066523,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,A,Šiaulių aps. VPK,804,842,95.48693586698336,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,B,Alytaus aps. VPK,3727,3809,97.8472039905487,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,B,Kauno aps. VPK,9393,9510,98.76971608832808,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,B,Klaipėdos aps. VPK,5013,5112,98.06338028169014,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,B,Marijampolės aps. VPK,2587,2607,99.23283467587264,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,B,Panevėžio aps. VPK,3724,3774,98.67514573396926,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,B,Policijos sistemos,47424,48717,97.34589568323172,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,B,Tauragės aps. VPK,1775,1794,98.94091415830546,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,B,Telšių aps. VPK,2362,2485,95.0503018108652,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,B,Utenos aps. VPK,2351,2352,99.95748299319727,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,B,Vilniaus aps. VPK,12254,12826,95.54030874785592,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,2,B,Šiaulių aps. VPK,4238,4448,95.27877697841728,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,A,Alytaus aps. VPK,1614,1696,95.16509433962264,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,A,Kauno aps. VPK,4286,4426,96.83687302304564,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,A,Klaipėdos aps. VPK,2397,2491,96.22641509433964,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,A,Marijampolės aps. VPK,944,974,96.9199178644764,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,A,Panevėžio aps. VPK,1972,2044,96.4774951076321,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,A,Policijos sistemos,19821,20863,95.0055121506974,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,A,Tauragės aps. VPK,612,621,98.55072463768116,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,A,Telšių aps. VPK,635,675,94.07407407407408,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,A,Utenos aps. VPK,944,947,99.6832101372756,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,A,Vilniaus aps. VPK,5134,5635,91.10913930789708,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,A,Šiaulių aps. VPK,1283,1354,94.7562776957164,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,B,Alytaus aps. VPK,5788,5930,97.6053962900506,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,B,Kauno aps. VPK,14642,14827,98.7522762527821,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,B,Klaipėdos aps. VPK,8064,8235,97.92349726775956,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,B,Marijampolės aps. VPK,4004,4051,98.83979264379164,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,B,Panevėžio aps. VPK,6065,6142,98.74633669814392,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,B,Policijos sistemos,74968,77020,97.33575694624771,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,B,Tauragės aps. VPK,2786,2820,98.79432624113475,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,B,Telšių aps. VPK,3599,3780,95.21164021164022,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,B,Utenos aps. VPK,3817,3821,99.89531536247055,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,B,Vilniaus aps. VPK,19518,20393,95.70931201883,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,3,B,Šiaulių aps. VPK,6685,7021,95.21435692921236,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,A,Alytaus aps. VPK,2119,2233,94.8947604120018,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,A,Kauno aps. VPK,5795,5981,96.89015214847016,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,A,Klaipėdos aps. VPK,3176,3307,96.03870577562743,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,A,Marijampolės aps. VPK,1354,1400,96.71428571428572,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,A,Panevėžio aps. VPK,2614,2705,96.63585951940853,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,A,Policijos sistemos,26678,28066,95.0545143590109,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,A,Tauragės aps. VPK,813,825,98.54545454545456,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,A,Telšių aps. VPK,906,976,92.82786885245902,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,A,Utenos aps. VPK,1306,1310,99.6946564885496,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,A,Vilniaus aps. VPK,6770,7392,91.58549783549785,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,A,Šiaulių aps. VPK,1824,1936,94.21487603305783,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,B,Alytaus aps. VPK,7634,7811,97.73396492126489,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,B,Kauno aps. VPK,19728,19964,98.81787216990584,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,B,Klaipėdos aps. VPK,10779,11010,97.90190735694824,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,B,Marijampolės aps. VPK,5626,5689,98.89259975391106,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,B,Panevėžio aps. VPK,8133,8242,98.67750545983984,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,B,Policijos sistemos,100913,103655,97.35468621870628,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,B,Tauragės aps. VPK,3729,3777,98.72915011914218,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,B,Telšių aps. VPK,4824,5094,94.69964664310952,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,B,Utenos aps. VPK,5077,5081,99.9212753395001,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,B,Vilniaus aps. VPK,26370,27483,95.95022377469708,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2025,4,B,Šiaulių aps. VPK,8999,9490,94.82613277133824,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2025 I-IV ketv.xlsx"
+2026,1,A,Alytaus aps. VPK,516,544,94.85294117647058,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,A,Kauno aps. VPK,1345,1412,95.25495750708215,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,A,Klaipėdos aps. VPK,792,845,93.72781065088758,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,A,Marijampolės aps. VPK,442,467,94.64668094218416,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,A,Panevėžio aps. VPK,635,665,95.48872180451129,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,A,Policijos sistemos,6788,7311,92.84639584188209,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,A,Tauragės aps. VPK,192,197,97.46192893401016,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,A,Telšių aps. VPK,255,281,90.74733096085409,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,A,Utenos aps. VPK,320,321,99.68847352024922,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,A,Vilniaus aps. VPK,1811,2040,88.77450980392156,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,A,Šiaulių aps. VPK,480,539,89.05380333951763,90,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,B,Alytaus aps. VPK,1758,1800,97.66666666666669,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,B,Kauno aps. VPK,4277,4335,98.66205305651673,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,B,Klaipėdos aps. VPK,2560,2629,97.37542791936096,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,B,Marijampolės aps. VPK,1475,1494,98.72824631860776,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,B,Panevėžio aps. VPK,1967,2004,98.15369261477046,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,B,Policijos sistemos,23368,24245,96.382759331821,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,B,Tauragės aps. VPK,881,900,97.88888888888889,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,B,Telšių aps. VPK,1019,1082,94.17744916820703,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,B,Utenos aps. VPK,1100,1106,99.45750452079564,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,B,Vilniaus aps. VPK,6354,6769,93.8691091741764,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,1,B,Šiaulių aps. VPK,1977,2126,92.99153339604892,93,"Kopija Copy of Reagavimas į įvykius (A,B)-2026 I ketv.xlsx"
+2026,2,A,Alytaus aps. VPK,1036,1095,94.61187214611871,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,A,Kauno aps. VPK,2903,3021,96.09400860642172,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,A,Klaipėdos aps. VPK,1815,1908,95.125786163522,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,A,Marijampolės aps. VPK,895,934,95.82441113490364,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,A,Panevėžio aps. VPK,1376,1432,96.08938547486034,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,A,Policijos sistemos,14610,15610,93.59385009609224,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,A,Tauragės aps. VPK,448,460,97.3913043478261,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,A,Telšių aps. VPK,574,630,91.11111111111111,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,A,Utenos aps. VPK,723,728,99.31318681318682,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,A,Vilniaus aps. VPK,3831,4289,89.3215201678713,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,A,Šiaulių aps. VPK,1009,1113,90.65588499550763,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,B,Alytaus aps. VPK,3921,4013,97.70745078494892,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,B,Kauno aps. VPK,9440,9573,98.6106758591873,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,B,Klaipėdos aps. VPK,5725,5879,97.38050688892667,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,B,Marijampolės aps. VPK,3283,3325,98.73684210526316,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,B,Panevėžio aps. VPK,4099,4181,98.03874671131308,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,B,Policijos sistemos,50795,52563,96.63641725167894,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,B,Tauragės aps. VPK,1970,2006,98.20538384845464,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,B,Telšių aps. VPK,2120,2252,94.13854351687388,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,B,Utenos aps. VPK,2546,2555,99.6477495107632,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,B,Vilniaus aps. VPK,13382,14213,94.15323999155704,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,2,B,Šiaulių aps. VPK,4309,4566,94.37144108628996,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-II ketv-1.xlsx"
+2026,3,A,Alytaus aps. VPK,1549,1640,94.45121951219512,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,A,Kauno aps. VPK,4457,4641,96.0353372118078,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,A,Klaipėdos aps. VPK,2962,3115,95.08828250401284,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,A,Marijampolės aps. VPK,1355,1414,95.82743988684582,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,A,Panevėžio aps. VPK,2162,2235,96.7337807606264,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,A,Policijos sistemos,22565,24122,93.5453113340519,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,A,Tauragės aps. VPK,687,703,97.724039829303,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,A,Telšių aps. VPK,861,938,91.7910447761194,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,A,Utenos aps. VPK,1100,1110,99.09909909909908,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,A,Vilniaus aps. VPK,5814,6556,88.68212324588164,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,A,Šiaulių aps. VPK,1618,1770,91.41242937853109,90,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,B,Alytaus aps. VPK,6222,6387,97.41662752465946,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,B,Kauno aps. VPK,14776,14970,98.70407481629928,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,B,Klaipėdos aps. VPK,9226,9466,97.46461018381576,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,B,Marijampolės aps. VPK,5283,5362,98.526669153301,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,B,Panevėžio aps. VPK,6461,6578,98.22134387351778,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,B,Policijos sistemos,79581,82483,96.4816992592413,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,B,Tauragės aps. VPK,3021,3082,98.02076573653471,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,B,Telšių aps. VPK,3350,3544,94.52595936794582,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,B,Utenos aps. VPK,4112,4127,99.63653985946208,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,B,Vilniaus aps. VPK,20445,21843,93.59978024996568,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
+2026,3,B,Šiaulių aps. VPK,6678,7117,93.83167064774484,93,"Kopija Reagavimas į įvykius (A,B)-2026 I-III ketv.xlsx"
