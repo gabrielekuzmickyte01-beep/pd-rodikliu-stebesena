@@ -38,8 +38,9 @@ st.info("Duomenys kaupiamieji: pasirinkus, pavyzdžiui, rugsėjį, rodomas laiko
 from drugs_ui import INDICATOR as DRUGS_INDICATOR, render as render_drugs
 from drugs_3y_ui import INDICATOR as DRUGS_3Y_INDICATOR, render as render_drugs_3y
 from assets_3y_ui import INDICATOR as ASSETS_3Y_INDICATOR, render as render_assets_3y
+from reagavimas_ui import INDICATORS as RESPONSE_INDICATORS, render as render_response
 
-indicators = df["indicator"].drop_duplicates().tolist() + [DRUGS_INDICATOR, DRUGS_3Y_INDICATOR, ASSETS_3Y_INDICATOR]
+indicators = df["indicator"].drop_duplicates().tolist() + [DRUGS_INDICATOR, DRUGS_3Y_INDICATOR, ASSETS_3Y_INDICATOR] + list(RESPONSE_INDICATORS.values())
 indicator = st.selectbox("Stebimas rodiklis", indicators, index=indicators.index("Sunkūs ir labai sunkūs nusikaltimai") if "Sunkūs ir labai sunkūs nusikaltimai" in indicators else 0)
 if indicator == DRUGS_INDICATOR:
     render_drugs()
@@ -50,6 +51,10 @@ if indicator == DRUGS_3Y_INDICATOR:
 if indicator == ASSETS_3Y_INDICATOR:
     render_assets_3y()
     st.stop()
+for response_category, response_name in RESPONSE_INDICATORS.items():
+    if indicator == response_name:
+        render_response(response_category)
+        st.stop()
 subset = df.loc[df["indicator"] == indicator].copy()
 
 col_year, col_month, col_territory = st.columns([1, 1, 2])
