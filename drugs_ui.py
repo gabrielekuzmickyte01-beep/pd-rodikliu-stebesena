@@ -193,6 +193,7 @@ def render():
     with st.expander("Peržiūrėti pasirinkto laikotarpio skaičius ir metodiką"):
         table = period[["territory", "previous_total", "current_total", "growth_percent"]].sort_values("territory").copy()
         table["territory"] = table["territory"].replace({"Visa Lietuva": "Policijos sistemos"})
+        table = table.rename(columns={"territory": "Teritorija / įstaiga", "previous_total": "Ankstesnių metų skaičius", "current_total": "Einamųjų metų skaičius", "growth_percent": "Pokytis (%)"})
         st.dataframe(table, hide_index=True, width="stretch")
         st.caption("R-07-011-11-02-01-06. Formulė: (einamųjų metų skaičius – ankstesnių metų skaičius) / "
                    "ankstesnių metų skaičius × 100. BK 260, BK 260¹, BK 261 str.; EK-ITĮ 12 psl. "
