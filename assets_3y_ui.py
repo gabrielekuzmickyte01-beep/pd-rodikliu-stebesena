@@ -147,6 +147,6 @@ def render():
     st.plotly_chart(trend, width="stretch", theme=None, config={"displaylogo": False})
 
     with st.expander("Peržiūrėti pasirinkto laikotarpio skaičius ir metodiką"):
-        st.dataframe(period[["territory", "A_3y", "B_3y", "C_3y", "value"]].sort_values("territory"),
-                     hide_index=True, width="stretch")
+        table = period[["territory", "A_3y", "B_3y", "C_3y", "value"]].sort_values("territory").rename(columns={"territory": "Teritorija / įstaiga", "A_3y": "Ištirta per 3 metus (A)", "B_3y": "Užregistruota per 3 metus (B)", "C_3y": "Iš ankstesnių laikotarpių (C)", "value": "Rodiklis (%)"})
+        st.dataframe(table, hide_index=True, width="stretch")
         st.caption("R-07-011-11-02-01-01. Formulė: A / (B + C) × 100. A – per trejus metus ištirta; B – per trejus metus užregistruota; C – ankstesniais laikotarpiais užregistruotos veikos, dėl kurių sprendimai priimti ataskaitiniu laikotarpiu. Šaltinis: IRD EK-ITĮ, 97 psl., BK 189¹ ir 216 str. Kai B + C = 0, reikšmė neskaičiuojama. Policijos sistemos bendras skaičius jau apima LKPB ir PD prie VRM.")
