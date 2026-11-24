@@ -124,8 +124,8 @@ st.plotly_chart(fig_line, width="stretch", theme=None, config={"displaylogo": Fa
 
 with st.expander("Peržiūrėti pasirinkto laikotarpio skaičius ir šaltinio pastabas"):
     columns = ["territory", "value", "unit"] + (["change_days", "case_count"] if is_duration else ["registered", "investigated", "remaining"])
-    table = period[columns].sort_values("territory").rename(columns={"remaining": "Iš ankstesnių laikotarpių ištirta"}).copy()
-    table["territory"] = table["territory"].replace({"Visa Lietuva": "Policijos sistemos"})
+    table = period[columns].sort_values("territory").rename(columns={"territory": "Teritorija / įstaiga", "value": "Rodiklio reikšmė", "unit": "Matavimo vienetas", "change_days": "Pokytis (dienomis)", "case_count": "Nusikalstamų veikų skaičius", "registered": "Užregistruota", "investigated": "Ištirta", "remaining": "Iš ankstesnių laikotarpių ištirta"}).copy()
+    table["Teritorija / įstaiga"] = table["Teritorija / įstaiga"].replace({"Visa Lietuva": "Policijos sistemos"})
     st.dataframe(table, hide_index=True, width="stretch")
     st.caption("Nusikalstamų veikų tyrimo trukmės ataskaitos stulpelio „nusikalstamų veikų skaičius“ tiksli metodinė apibrėžtis turi būti patvirtinta prieš oficialų naudojimą. Procentai gali viršyti 100 %; jų automatiškai neribojame.")
 
