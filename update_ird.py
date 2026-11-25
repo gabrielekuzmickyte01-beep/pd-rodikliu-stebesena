@@ -26,7 +26,7 @@ INDICATORS = {
     "Policijos ištirtų sunkių ir labai sunkių nusikaltimų dalis": ("EK-ITĮ", 18),
     "Vidutinė nusikalstamos veikos tyrimo trukmė policijoje, kalendorinėmis dienomis": ("TYR-TRUK", 2),
     "Nusikalstamos veikos, kurių metu nuo fizinio ar seksualinio smurto nukentėjo vaikai": ("EK-ITĮ", 98),
-    "Veikos elektroninėje erdvėje": ("EL-ERDVĖ-ITĮ", 1),
+    "Ištirtų nusikalstamų veikų, padarytų elektroninėje erdvėje, dalis": ("EL-ERDVĖ-ITĮ", 1),
 }
 KEYS = ["indicator", "territory", "year", "month"]
 COLUMNS = ["indicator", "territory", "year", "month", "quarter", "value", "unit", "registered", "investigated", "remaining", "change_days", "case_count"]
