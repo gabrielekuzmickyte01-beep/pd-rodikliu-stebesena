@@ -149,7 +149,10 @@ with st.expander("Peržiūrėti pasirinkto laikotarpio skaičius ir šaltinio pa
     table = period[columns].sort_values("territory").rename(columns={"territory": "Teritorija / įstaiga", "value": "Rodiklio reikšmė", "unit": "Matavimo vienetas", "change_days": "Pokytis (dienomis)", "case_count": "Nusikalstamų veikų skaičius", "registered": "Užregistruota", "investigated": "Ištirta", "remaining": "Iš ankstesnių laikotarpių ištirta"}).copy()
     table["Teritorija / įstaiga"] = table["Teritorija / įstaiga"].replace({"Visa Lietuva": "Policijos sistemos"})
     st.dataframe(table, hide_index=True, width="stretch")
-    st.caption("Nusikalstamų veikų tyrimo trukmės ataskaitos stulpelio „nusikalstamų veikų skaičius“ tiksli metodinė apibrėžtis turi būti patvirtinta prieš oficialų naudojimą. Procentai gali viršyti 100 %; jų automatiškai neribojame.")
+    if is_duration:
+        st.caption("Tyrimo trukmė pateikiama kalendorinėmis dienomis. Ataskaitos stulpelio „nusikalstamų veikų skaičius“ tiksli metodinė apibrėžtis turi būti patvirtinta prieš oficialų naudojimą. LKPB reikšmė imama iš „Polic. įstaigos“ eilutės.")
+    else:
+        st.caption("Procentiniai ištyrimo rodikliai gali viršyti 100 %; jų automatiškai neribojame.")
 
 st.divider()
 st.caption("Prototipas, skirtas viešų IRD ataskaitų duomenims vizualizuoti. Automatinė IRD patikra suplanuota kasdien per GitHub Actions. Naujai paskelbti duomenys matomi tik po sėkmingos patikros ir CSV atnaujinimo; tikrinimo rezultatus galima stebėti GitHub Actions skiltyje.")
