@@ -91,7 +91,9 @@ c1, c2, c3 = st.columns(3)
 c1.metric("Pasirinktos teritorijos / įstaigos rodiklis", "Neskaičiuojama" if pd.isna(selected_record["value"]) else (f"{float(selected_record['value']):.2f} d." if is_duration else f"{float(selected_record['value']):.1f} %"))
 c2.metric("Policijos sistemos rodiklis", f"{country_value:.2f} d." if is_duration else f"{country_value:.1f} %")
 diff = float(selected_record["value"]) - country_value if pd.notna(selected_record["value"]) else float("nan")
-c3.metric("Skirtumas nuo bendro rodiklio", "Neskaičiuojama" if pd.isna(diff) else (f"{diff:+.2f} d." if is_duration else f"{diff:+.1f} proc. p."))
+c3.metric("Skirtumas nuo plano ribos (140 d.)" if is_duration else "Skirtumas nuo bendro rodiklio", "Neskaičiuojama" if pd.isna(selected_record["value"]) and is_duration else (f"{float(selected_record['value']) - 140:+.2f} d." if is_duration else ("Neskaičiuojama" if pd.isna(diff) else f"{diff:+.1f} proc. p.")))
+if is_duration:
+    st.caption("Kuo mažesnė tyrimo trukmė, tuo geriau. Planas – ne daugiau kaip 140 kalendorinių dienų. LKPB reikšmei naudojama IRD „Polic. įstaigos“ eilutė.")
 
 st.subheader("Apskričių VPK, LKPB ir PD prie VRM palyginimas")
 counties = period.loc[(period["territory"] != "Visa Lietuva") & period["value"].notna()].sort_values("value", ascending=True).copy()
@@ -104,12 +106,25 @@ if is_duration:
 else:
     hover = "<b>%{y}</b><br>Ištyrimo rodiklis: %{x:.1f} %<br>Registruota: %{customdata[0]:.0f}<br>Ištirta: %{customdata[1]:.0f}<br>Iš ankstesnių laikotarpių ištirta: %{customdata[2]:.0f}<extra></extra>"
     extras = counties[["registered", "investigated", "remaining"]].to_numpy()
-fig_bar.add_trace(go.Bar(x=counties["value"], y=counties["territory"], orientation="h", marker=dict(color=counties["value"], colorscale="Greens_r" if is_duration else "Greens", showscale=False), customdata=extras, hovertemplate=hover))
-fig_bar.add_vline(x=country_value, line_dash="dash", line_color=ORANGE, line_width=2, annotation_text=f"Policijos sistemos: {country_value:.2f} d." if is_duration else f"Visa Lietuva: {country_value:.1f} %", annotation_position="top")
-fig_bar.update_layout(template="plotly_white", height=510, xaxis_title="Vidutinė trukmė (dienomis)" if is_duration else "Ištyrimo rodiklis (%)", yaxis_title="", margin=dict(l=5, r=20, t=35, b=35), showlegend=False)
+bar_colors = (["#4caa7c" if v <= 140 else "#d45b56" for v in counties["value"]]
+              if is_duration else None)
+fig_bar.add_trace(go.Bar(x=counties["value"], y=counties["territory"], orientation="h", marker=dict(color=bar_colors) if is_duration else dict(color=counties["value"], colorscale="Greens", showscale=False), customdata=extras, hovertemplate=hover))
+if is_duration:
+    fig_bar.add_vline(x=country_value, line_dash="dash", line_color=ORANGE, line_width=2)
+    fig_bar.add_vline(x=140, line_dash="dot", line_color="#c62828", line_width=2)
+    fig_bar.add_annotation(x=country_value, y=1.17, xref="x", yref="paper",
+                           text=f"Policijos sistema: {country_value:.2f} d.",
+                           showarrow=False, xanchor="center", font=dict(color="#c86a26", size=12))
+    fig_bar.add_annotation(x=140, y=1.06, xref="x", yref="paper",
+                           text="Plano riba: 140 d.",
+                           showarrow=False, xanchor="center", font=dict(color="#c62828", size=12))
+else:
+    fig_bar.add_vline(x=country_value, line_dash="dash", line_color=ORANGE, line_width=2,
+                      annotation_text=f"Visa Lietuva: {country_value:.1f} %", annotation_position="top")
+fig_bar.update_layout(template="plotly_white", height=510, xaxis_title="Vidutinė trukmė (kalendorinėmis dienomis)" if is_duration else "Ištyrimo rodiklis (%)", yaxis_title="", margin=dict(l=5, r=20, t=105 if is_duration else 35, b=35), showlegend=False)
 fig_bar.update_xaxes(rangemode="tozero")
 st.plotly_chart(fig_bar, width="stretch", theme=None, config={"displaylogo": False})
-st.caption("Oranžinė punktyrinė linija – IRD policijos sistemos rodiklis („Polic. įstaigos“). Jis jau apima apskričių VPK, LKPB ir PD prie VRM duomenis; jų papildomai nesumuojame. Kai įstaigos rodiklis neapskaičiuojamas, stulpelis nerodomas.")
+st.caption("Oranžinė linija – Policijos sistemos rodiklis; raudona – 140 d. plano riba. Žalia spalva reiškia, kad planas pasiektas, raudona – viršytas. LKPB rodoma pagal IRD „Polic. įstaigos“ eilutę." if is_duration else "Oranžinė punktyrinė linija – IRD policijos sistemos rodiklis („Polic. įstaigos“). Bendro rodiklio papildomai nesumuojame su įstaigų reikšmėmis.")
 
 st.subheader(f"Istorinė dinamika – {'Policijos sistemos' if territory == 'Visa Lietuva' else territory}")
 trend = subset[subset["territory"] == territory].sort_values(["year", "month"])
@@ -123,7 +138,10 @@ for y in sorted(trend["year"].unique()):
         custom = part[["registered", "investigated", "remaining"]].to_numpy()
         hover_line = f"<b>{y} m.</b><br>Iki mėnesio: %{{x}}<br>Ištyrimo rodiklis: %{{y:.1f}} %<br>Registruota: %{{customdata[0]:.0f}}<br>Ištirta: %{{customdata[1]:.0f}}<br>Iš ankstesnių laikotarpių ištirta: %{{customdata[2]:.0f}}<extra></extra>"
     fig_line.add_trace(go.Scatter(x=part["month"], y=part["value"], mode="lines+markers", name=f"{y} m.", line=dict(width=3, color=YEAR_COLORS.get(y)), marker=dict(size=7), customdata=custom, hovertemplate=hover_line))
-fig_line.update_layout(template="plotly_white", height=460, xaxis=dict(title="Ataskaitinis mėnuo (kaupiamasis laikotarpis)", tickmode="array", tickvals=list(MONTHS), ticktext=[m[:3] for m in MONTHS.values()], range=[0.5,12.5]), yaxis=dict(title="Vidutinė trukmė (dienomis)" if is_duration else "Ištyrimo rodiklis (%)", rangemode="tozero"), margin=dict(l=15,r=25,t=30,b=40), legend_title="Metai")
+if is_duration:
+    fig_line.add_hline(y=140, line_dash="dash", line_color="#c62828", line_width=2,
+                       annotation_text="Plano riba: 140 d.", annotation_position="top right")
+fig_line.update_layout(template="plotly_white", height=460, xaxis=dict(title="Ataskaitinis mėnuo (kaupiamasis laikotarpis)", tickmode="array", tickvals=list(MONTHS), ticktext=[m[:3] for m in MONTHS.values()], range=[0.5,12.5]), yaxis=dict(title="Vidutinė trukmė (kalendorinėmis dienomis)" if is_duration else "Ištyrimo rodiklis (%)", autorange=True if is_duration else False, rangemode="normal" if is_duration else "tozero"), margin=dict(l=15,r=25,t=50 if is_duration else 30,b=40), legend_title="Metai")
 st.plotly_chart(fig_line, width="stretch", theme=None, config={"displaylogo": False})
 
 with st.expander("Peržiūrėti pasirinkto laikotarpio skaičius ir šaltinio pastabas"):
