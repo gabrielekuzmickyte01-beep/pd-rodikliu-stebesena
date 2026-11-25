@@ -94,15 +94,26 @@ def render():
         hovertemplate="<b>%{y}</b><br>Rodiklis: %{x:.2f} %<br>Savanoriškai atleista: %{customdata[0]:.0f}<br>Iš viso atleista: %{customdata[1]:.0f}<extra></extra>",
         showlegend=False,
     ))
-    fig.add_vline(x=national, line_color="#e17b35", line_dash="dash", line_width=2,
-                  annotation_text=f"Policijos sistema: {national:.2f} %", annotation_position="top left")
-    fig.add_vline(x=LIMIT, line_color="#c62828", line_dash="dot", line_width=2,
-                  annotation_text=f"Plano riba: {LIMIT:.0f} %", annotation_position="top right")
+    # Linijų užrašai pateikiami skirtinguose aukščiuose, kad nepersidengtų.
+    fig.add_vline(x=national, line_color="#e17b35", line_dash="dash", line_width=2)
+    fig.add_vline(x=LIMIT, line_color="#c62828", line_dash="dot", line_width=2)
+    fig.add_annotation(
+        x=national, y=1.14, xref="x", yref="paper",
+        text=f"Policijos sistema: {national:.2f} %",
+        showarrow=False, xanchor="center", yanchor="bottom",
+        font=dict(color="#c86a26", size=13),
+    )
+    fig.add_annotation(
+        x=LIMIT, y=1.04, xref="x", yref="paper",
+        text=f"Plano riba: {LIMIT:.0f} %",
+        showarrow=False, xanchor="center", yanchor="bottom",
+        font=dict(color="#c62828", size=13),
+    )
     fig.update_layout(
         template="plotly_white", height=625, showlegend=False,
         xaxis_title="Savanoriškai atleistų pareigūnų dalis (%)",
         yaxis=dict(title="", categoryorder="array", categoryarray=bars.territory.tolist()),
-        margin=dict(l=5, r=45, t=60, b=40),
+        margin=dict(l=5, r=45, t=105, b=40),
     )
     fig.update_xaxes(range=[0, 105])
     st.plotly_chart(fig, width="stretch", theme=None, config={"displaylogo": False})
