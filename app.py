@@ -141,7 +141,7 @@ for y in sorted(trend["year"].unique()):
 if is_duration:
     fig_line.add_hline(y=140, line_dash="dash", line_color="#c62828", line_width=2,
                        annotation_text="Plano riba: 140 d.", annotation_position="top right")
-fig_line.update_layout(template="plotly_white", height=460, xaxis=dict(title="Ataskaitinis mėnuo (kaupiamasis laikotarpis)", tickmode="array", tickvals=list(MONTHS), ticktext=[m[:3] for m in MONTHS.values()], range=[0.5,12.5]), yaxis=dict(title="Vidutinė trukmė (kalendorinėmis dienomis)" if is_duration else "Ištyrimo rodiklis (%)", autorange=True if is_duration else False, rangemode="normal" if is_duration else "tozero"), margin=dict(l=15,r=25,t=50 if is_duration else 30,b=40), legend_title="Metai")
+fig_line.update_layout(template="plotly_white", height=460, xaxis=dict(title="Ataskaitinis mėnuo (kaupiamasis laikotarpis)", tickmode="array", tickvals=list(MONTHS), ticktext=[m[:3] for m in MONTHS.values()], range=[0.5,12.5]), yaxis=dict(title="Vidutinė trukmė (kalendorinėmis dienomis)" if is_duration else "Ištyrimo rodiklis (%)", autorange=True, rangemode="normal" if is_duration else "tozero"), margin=dict(l=15,r=25,t=50 if is_duration else 30,b=40), legend_title="Metai")
 st.plotly_chart(fig_line, width="stretch", theme=None, config={"displaylogo": False})
 
 with st.expander("Peržiūrėti pasirinkto laikotarpio skaičius ir šaltinio pastabas"):
