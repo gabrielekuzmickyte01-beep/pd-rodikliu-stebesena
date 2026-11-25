@@ -42,7 +42,7 @@ from reagavimas_ui import INDICATORS as RESPONSE_INDICATORS, render as render_re
 from atleidimai_ui import INDICATOR as DISMISSALS_INDICATOR, render as render_dismissals
 
 indicators = df["indicator"].drop_duplicates().tolist() + [DRUGS_INDICATOR, DRUGS_3Y_INDICATOR, ASSETS_3Y_INDICATOR] + list(RESPONSE_INDICATORS.values()) + [DISMISSALS_INDICATOR]
-indicator = st.selectbox("Stebimas rodiklis", indicators, index=indicators.index("Sunkūs ir labai sunkūs nusikaltimai") if "Sunkūs ir labai sunkūs nusikaltimai" in indicators else 0)
+indicator = st.selectbox("Stebimas rodiklis", indicators, index=indicators.index("Policijos ištirtų sunkių ir labai sunkių nusikaltimų dalis") if "Policijos ištirtų sunkių ir labai sunkių nusikaltimų dalis" in indicators else 0)
 if indicator == DRUGS_INDICATOR:
     render_drugs()
     st.stop()
