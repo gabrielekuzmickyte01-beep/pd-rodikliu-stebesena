@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parent
 CSV = ROOT / "pd_rodikliai.csv"
 BASE_URL = os.environ.get("IRD_BASE_URL", "https://www.ird.lt/lt/tvarkomu-valdomu-registru-ir-informaciniu-sistemu-paslaugos-3/nusikalstamu-veiku-zinybinio-registro-nvzr-atviri-duomenys-paslaugos-2/ataskaitos-3/nusikalstamumo-ir-ikiteisminiu-tyrimu-statistika-2")
 INDICATORS = {
-    "Sunkūs ir labai sunkūs nusikaltimai": ("EK-ITĮ", 18),
+    "Policijos ištirtų sunkių ir labai sunkių nusikaltimų dalis": ("EK-ITĮ", 18),
     "Vidutinė nusikalstamos veikos tyrimo trukmė policijoje, kalendorinėmis dienomis": ("TYR-TRUK", 2),
     "Nusikalstamos veikos, kurių metu nuo fizinio ar seksualinio smurto nukentėjo vaikai": ("EK-ITĮ", 98),
     "Veikos elektroninėje erdvėje": ("EL-ERDVĖ-ITĮ", 1),
@@ -58,9 +58,9 @@ def parse_excel(content: bytes, indicator: str, year: int, month: int) -> pd.Dat
         selected = {"value": 3, "change_days": 4, "case_count": 7}
         unit = "dienos"
     else:
-        header_row = 10 if indicator == "Sunkūs ir labai sunkūs nusikaltimai" else 9
+        header_row = 10 if indicator == "Policijos ištirtų sunkių ir labai sunkių nusikaltimų dalis" else 9
         groups = ({"remaining": [11, 12], "registered": [4, 5], "investigated": [9, 10], "value": [13, 14]}
-                  if indicator == "Sunkūs ir labai sunkūs nusikaltimai" else
+                  if indicator == "Policijos ištirtų sunkių ir labai sunkių nusikaltimų dalis" else
                   {"remaining": [13, 14], "registered": [4, 5], "investigated": [11, 12], "value": [15, 16]}
                   if indicator.startswith("Nusikalstamos veikos, kurių metu") else
                   {"remaining": [12, 13], "registered": [4, 5], "investigated": [10, 11], "value": [14, 15]})
