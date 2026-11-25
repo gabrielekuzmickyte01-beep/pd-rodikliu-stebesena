@@ -24,7 +24,7 @@ CSV = ROOT / "pd_rodikliai.csv"
 BASE_URL = os.environ.get("IRD_BASE_URL", "https://www.ird.lt/lt/tvarkomu-valdomu-registru-ir-informaciniu-sistemu-paslaugos-3/nusikalstamu-veiku-zinybinio-registro-nvzr-atviri-duomenys-paslaugos-2/ataskaitos-3/nusikalstamumo-ir-ikiteisminiu-tyrimu-statistika-2")
 INDICATORS = {
     "Sunkūs ir labai sunkūs nusikaltimai": ("EK-ITĮ", 18),
-    "Vidutinė tyrimo trukmė": ("TYR-TRUK", 2),
+    "Vidutinė nusikalstamos veikos tyrimo trukmė policijoje, kalendorinėmis dienomis": ("TYR-TRUK", 2),
     "Nusikalstamos veikos, kurių metu nuo fizinio ar seksualinio smurto nukentėjo vaikai": ("EK-ITĮ", 98),
     "Veikos elektroninėje erdvėje": ("EL-ERDVĖ-ITĮ", 1),
 }
@@ -50,7 +50,7 @@ def parse_excel(content: bytes, indicator: str, year: int, month: int) -> pd.Dat
     else:
         raise ValueError("IRD atsiuntė ne Excel failą")
     raw = pd.read_excel(io.BytesIO(content), header=None, engine=engine)
-    if indicator == "Vidutinė tyrimo trukmė":
+    if indicator == "Vidutinė nusikalstamos veikos tyrimo trukmė policijoje, kalendorinėmis dienomis":
         if raw.shape[0] < 10 or raw.shape[1] < 8:
             raise ValueError("Netikėta TYR-TRUK lentelės struktūra")
         if int(pd.to_numeric(raw.iloc[5, 3], errors="coerce")) != year:
@@ -93,6 +93,16 @@ def parse_excel(content: bytes, indicator: str, year: int, month: int) -> pd.Dat
     result["month"] = month
     result["quarter"] = (month - 1) // 3 + 1
     result["unit"] = unit
+    if indicator == "Vidutinė nusikalstamos veikos tyrimo trukmė policijoje, kalendorinėmis dienomis":
+        # Trukmės rodiklio LKPB reikšmei imama TYR-TRUK
+        # "Polic. įstaigos" eilutė (čia pervadinta į "Visa Lietuva").
+        # Tai taikoma ir būsimiems automatiniams atnaujinimams.
+        overall = result.loc[result["territory"] == "Visa Lietuva"]
+        lkpb = result["territory"] == "LKPB"
+        if len(overall) != 1 or lkpb.sum() != 1:
+            raise ValueError("TYR-TRUK: nerastos policijos įstaigų arba LKPB eilutės")
+        for column in ("value", "change_days", "case_count"):
+            result.loc[lkpb, column] = overall.iloc[0][column]
     for col in COLUMNS:
         if col not in result:
             result[col] = float("nan")
